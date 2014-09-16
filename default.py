@@ -73,6 +73,9 @@ class GUI(xbmcgui.WindowXML):
         if controlId == 100:
             pass
 
+    def onFocus(self, controlId):
+        pass
+        
 if __name__ == '__main__':
     gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
     del gui
