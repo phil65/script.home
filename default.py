@@ -64,7 +64,10 @@ class GUI(xbmcgui.WindowXML):
     def onAction(self, action):
         action_id = action.getId()
         if action_id in self.ACTION_SHOW_INFO:
-            pass
+            if xbmc.getCondVisibility("IsEmpty(Window(home).Property(DisableWidgets))"):
+                xbmc.executebuiltin("SetProperty(DisableWidgets,1,home)")
+            else:
+                xbmc.executebuiltin("ClearProperty(DisableWidgets,home)")
 
     def onClick(self, controlId):
         if controlId == 100:
