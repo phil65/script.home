@@ -19,6 +19,28 @@ __language__ = __addon__.getLocalizedString
 Addon_Data_Path = os.path.join(xbmc.translatePath("special://profile/addon_data/%s" % __addonid__).decode("utf-8"))
 
 
+def MoveProperties(container_number, focuscontrol):
+    Properties = ["Label", "Label2", "Icon", "Thumb", "Fanart", "Path", "Poster", "Logo", "ClearArt", "Landscape",
+                  "Banner", "CharacterArt", "DiscArt", "Year", "Plot", "Tagline", "OriginalTitle", "RunningTime",
+                  "Director", "Rating", "StatusID", "Status", "NextTitle", "LatestTitle", "LatestDate", "Studio",
+                  "Country", "Network", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
+                  "mpaa", "Id", "Channel", "Publisher", "Description", "Genre", "RecordLabel", "Premiered",
+                  "Folder", "EpisodeNumber", "Version", "DBID", "Mood", "Style", "Theme", "Instrument", "Born",
+                  "Died", "Formed", "Disbanded", "YearsActive", "Trailer"]
+    for prop in Properties:
+        InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Property(%s)]" % (str(container_number), prop))
+        builtin = "SetProperty(%s,%s,home)" % (prop, InfoLabel)
+        xbmc.executebuiltin(builtin)
+    InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Label]" % (str(container_number)))
+    xbmc.executebuiltin("SetProperty(Label,%s,home)" % (InfoLabel))
+    InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Label2]" % (str(container_number)))
+    xbmc.executebuiltin("SetProperty(Label2,%s,home)" % (InfoLabel))
+    InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Thumb]" % (str(container_number)))
+    xbmc.executebuiltin("SetProperty(Thumb,%s,home)" % (InfoLabel))
+    InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Icon]" % (str(container_number)))
+    xbmc.executebuiltin("SetProperty(Icon,%s,home)" % (InfoLabel))
+    xbmc.executebuiltin("SetFocus(%s)" % (str(focuscontrol)))
+
 def GetStringFromUrl(encurl):
     succeed = 0
     while succeed < 5:

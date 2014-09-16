@@ -77,6 +77,19 @@ class GUI(xbmcgui.WindowXML):
         pass
         
 if __name__ == '__main__':
-    gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
-    del gui
+    startGUI = True
+    for arg in sys.argv:
+        param = arg.lower()
+        log("param = " + param)
+        if param.startswith('container='):
+            startGUI = False
+            container = param[10:]
+        if param.startswith('focuscontrol='):
+            startGUI = False
+            focuscontrol = param[13:]
+    if startGUI:
+        gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
+        del gui
+    else:
+        MoveProperties(container, focuscontrol)
     sys.modules.clear()
