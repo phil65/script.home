@@ -20,6 +20,7 @@
 import xbmcaddon
 import xbmcgui
 from Utils import *
+from ColorConfigDialog import ColorConfigDialog
 
 __addon__ = xbmcaddon.Addon()
 __addonid__ = __addon__.getAddonInfo('id')
@@ -75,21 +76,28 @@ class GUI(xbmcgui.WindowXML):
 
     def onFocus(self, controlId):
         pass
-        
+
 if __name__ == '__main__':
-    startGUI = True
+    window = None
     for arg in sys.argv:
         param = arg.lower()
         log("param = " + param)
+        if param.startswith('window='):
+            window = param[7:]
         if param.startswith('container='):
-            startGUI = False
             container = param[10:]
         if param.startswith('focuscontrol='):
-            startGUI = False
             focuscontrol = param[13:]
-    if startGUI:
-        gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
-        del gui
+    if window is not None:
+        if window == "home":
+            gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
+            del gui
+        elif window == "colorconfig":
+            gui = ColorConfigDialog(u'script-%s-colorconfig.xml' % addon_name, addon_path).doModal()
+            del gui
+        elif window == "trailers":
+            gui = GUI(u'script-%s-trailers.xml' % addon_name, addon_path).doModal()
+            del gui
     else:
         MoveProperties(container, focuscontrol)
     sys.modules.clear()
