@@ -26,7 +26,7 @@ def MoveProperties(container_number, focuscontrol):
                   "Country", "Network", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
                   "mpaa", "Id", "Channel", "Publisher", "Description", "Genre", "RecordLabel", "Premiered",
                   "Folder", "EpisodeNumber", "Version", "DBID", "Mood", "Style", "Theme", "Instrument", "Born",
-                  "Died", "Formed", "Disbanded", "YearsActive", "Trailer", "Top250", "Writer", "Watched"]
+                  "Died", "Formed", "Disbanded", "YearsActive", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
     for prop in Properties:
         InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Property(%s)]" % (str(container_number), prop))
         builtin = "SetProperty(%s,%s,home)" % (prop, InfoLabel)
