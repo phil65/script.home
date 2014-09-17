@@ -55,8 +55,25 @@ class FeaturedWindow(xbmcgui.WindowXML):
     def onAction(self, action):
         action_id = action.getId()
         if action_id in ACTION_PREVIOUS_MENU:
-            if not xbmc.getCondVisibility("Control.HasFocus(5055)"):
-                self.close()
+            if xbmc.getCondVisibility("IsEmpty(Window(home).Property(PanelWidgetInfo))"):
+                pass
+            else:
+                xbmc.executebuiltin("ClearProperty(PanelWidgetInfo,home)")
+        elif action_id in ACTION_SHOW_INFO:
+            if xbmc.getCondVisibility("Control.HasFocus(5009)"):
+                xbmc.executebuiltin("Control.Move(5002,1)")
+            elif xbmc.getCondVisibility("Control.HasFocus(5011)"):
+                xbmc.executebuiltin("Control.Move(5003,1)")
+            elif xbmc.getCondVisibility("Control.HasFocus(6010)"):
+                xbmc.executebuiltin("Control.Move(6002,1)")
+            elif xbmc.getCondVisibility("Control.HasFocus(6011)"):
+                xbmc.executebuiltin("Control.Move(6003,1)")
+            elif xbmc.getCondVisibility("Control.HasFocus(7010)"):
+                xbmc.executebuiltin("Control.Move(7002,1)")
+            elif xbmc.getCondVisibility("Control.HasFocus(8010)"):
+                xbmc.executebuiltin("Control.Move(8002,1)")
+            elif xbmc.getCondVisibility("Control.HasFocus(9010)"):
+                xbmc.executebuiltin("Control.Move(9002,1)")
 
     def onClick(self, controlId):
         if controlId == 18:
