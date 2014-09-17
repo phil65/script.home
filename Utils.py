@@ -20,13 +20,13 @@ Addon_Data_Path = os.path.join(xbmc.translatePath("special://profile/addon_data/
 
 
 def MoveProperties(container_number, focuscontrol):
-    Properties = ["Label", "Label2", "icon", "thumb", "fanart", "Path", "Poster", "logo", "clearart", "landscape",
-                  "banner", "characterart", "discart", "Year", "Plot", "Tagline", "OriginalTitle", "Type",
+    Properties = ["Label", "Label2", "icon", "thumb", "fanart", "Path", "Poster", "logo", "clearart", "landscape", "Season",
+                  "banner", "characterart", "discart", "Year", "Plot", "Tagline", "OriginalTitle", "Type", "TVShowTitle",
                   "Director", "Rating", "StatusID", "Status", "NextTitle", "LatestTitle", "LatestDate", "Studio", "Budget",
                   "Country", "Network", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
                   "mpaa", "Id", "Channel", "Publisher", "Description", "Genre", "RecordLabel", "Premiered", "Duration",
-                  "Folder", "EpisodeNumber", "Version", "DBID", "Mood", "Style", "Theme", "Instrument", "Born", "PlotOutline",
-                  "Died", "Formed", "Disbanded", "YearsActive", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
+                  "Folder", "EpisodeNumber", "Version", "DBID", "Mood", "Style", "Theme", "Artist_Instrument", "Artist_Born", "PlotOutline",
+                  "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
     for prop in Properties:
         InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Property(%s)]" % (str(container_number), prop))
         if InfoLabel.strip() is "":
