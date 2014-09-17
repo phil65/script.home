@@ -22,6 +22,7 @@ import xbmcgui
 from Utils import *
 from ColorConfigDialog import ColorConfigDialog
 from TrailerWindow import TrailerWindow
+from FeaturedWindow import FeaturedWindow
 
 __addon__ = xbmcaddon.Addon()
 __addonid__ = __addon__.getAddonInfo('id')
@@ -154,6 +155,9 @@ if __name__ == '__main__':
             del gui
         elif window == "trailers":
             gui = TrailerWindow(u'script-%s-trailers.xml' % addon_name, addon_path).doModal()
+            del gui
+        elif window == "featured":
+            gui = FeaturedWindow(u'script-%s-featured.xml' % addon_name, addon_path).doModal()
             del gui
     else:
         MoveProperties(container, focuscontrol)
