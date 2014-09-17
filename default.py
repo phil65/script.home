@@ -64,10 +64,24 @@ class GUI(xbmcgui.WindowXML):
     def onAction(self, action):
         action_id = action.getId()
         if action_id in ACTION_SHOW_INFO:
-            if xbmc.getCondVisibility("IsEmpty(Window(home).Property(DisableWidgets))"):
-                xbmc.executebuiltin("SetProperty(DisableWidgets,1,home)")
-            else:
-                xbmc.executebuiltin("ClearProperty(DisableWidgets,home)")
+            if xbmc.getCondVisibility("Control.HasFocus(9000)"):
+                if xbmc.getCondVisibility("IsEmpty(Window(home).Property(DisableWidgets))"):
+                    xbmc.executebuiltin("SetProperty(DisableWidgets,1,home)")
+                else:
+                    xbmc.executebuiltin("ClearProperty(DisableWidgets,home)")
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + Control.HasFocus(5010)"):
+                xbmc.executebuiltin("Control.Move(5001,1)")
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + Control.HasFocus(5011)"):
+                xbmc.executebuiltin("Control.Move(5002,1)")
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + Control.HasFocus(5012)"):
+                xbmc.executebuiltin("Control.Move(5003,1)")
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6010)"):
+                xbmc.executebuiltin("Control.Move(6001,1)")
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6011)"):
+                xbmc.executebuiltin("Control.Move(6002,1)")
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6012)"):
+                xbmc.executebuiltin("Control.Move(6003,1)")
+
         elif action_id in ACTION_CONTEXT_MENU:
             pass
         #     context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Label"])
