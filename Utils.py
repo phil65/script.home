@@ -29,11 +29,11 @@ def MoveProperties(container_number, focuscontrol):
                   "Died", "Formed", "Disbanded", "YearsActive", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
     for prop in Properties:
         InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Property(%s)]" % (str(container_number), prop))
-        if InfoLabel is "":
+        if InfoLabel.strip() is "":
             InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.%s]" % (str(container_number), prop))
-        if InfoLabel is "":
+        if InfoLabel.strip() is "":
             InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Art(%s)]" % (str(container_number), prop))
-        builtin = "SetProperty(%s,%s,home)" % (prop, InfoLabel)            
+        builtin = "SetProperty(%s,%s,home)" % (prop, InfoLabel.strip())            
         xbmc.executebuiltin(builtin)
     xbmc.executebuiltin("SetFocus(%s)" % (str(focuscontrol)))
 
