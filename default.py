@@ -21,6 +21,7 @@ import xbmcaddon
 import xbmcgui
 from Utils import *
 from ColorConfigDialog import ColorConfigDialog
+from TrailerWindow import TrailerWindow
 
 __addon__ = xbmcaddon.Addon()
 __addonid__ = __addon__.getAddonInfo('id')
@@ -32,22 +33,23 @@ addon = xbmcaddon.Addon()
 addon_path = addon.getAddonInfo('path')
 addon_name = addon.getAddonInfo('name')
 
+CONTROL_SEARCH = 101
+ACTION_CONTEXT_MENU = [117]
+ACTION_OSD = [122]
+ACTION_PREVIOUS_MENU = [9, 92, 10]
+ACTION_SHOW_INFO = [11]
+ACTION_EXIT_SCRIPT = [13]
+ACTION_DOWN = [4]
+ACTION_UP = [3]
+ACTION_LEFT = [1]
+ACTION_RIGHT = [2]
+ACTION_0 = [58, 18]
+ACTION_PLAY = [79]
+ACTION_SELECT_ITEM = [7]
+CANCEL_DIALOG = [9, 10, 92, 216, 247, 257, 275, 61467, 61448]
+
 
 class GUI(xbmcgui.WindowXML):
-
-    CONTROL_SEARCH = 101
-    ACTION_CONTEXT_MENU = [117]
-    ACTION_OSD = [122]
-    ACTION_PREVIOUS_MENU = [9, 92, 10]
-    ACTION_SHOW_INFO = [11]
-    ACTION_EXIT_SCRIPT = [13]
-    ACTION_DOWN = [4]
-    ACTION_UP = [3]
-    ACTION_LEFT = [1]
-    ACTION_RIGHT = [2]
-    ACTION_0 = [58, 18]
-    ACTION_PLAY = [79]
-    ACTION_SELECT_ITEM = [7]
 
     def __init__(self, skin_file, addon_path):
         log('__init__')
@@ -55,27 +57,82 @@ class GUI(xbmcgui.WindowXML):
     def onInit(self, startGUI=True):
         log('onInit')
 
-    def init_vars(self):
-        self.NavMode_active = False
-        self.street_view = False
-
     def getControls(self):
         pass
 
     def onAction(self, action):
         action_id = action.getId()
-        if action_id in self.ACTION_SHOW_INFO:
+        if action_id in ACTION_SHOW_INFO:
             if xbmc.getCondVisibility("IsEmpty(Window(home).Property(DisableWidgets))"):
                 xbmc.executebuiltin("SetProperty(DisableWidgets,1,home)")
             else:
                 xbmc.executebuiltin("ClearProperty(DisableWidgets,home)")
+        elif action_id in ACTION_CONTEXT_MENU:
+            pass
+        #     context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Label"])
+        #     context_menu.doModal()
+        #     if context_menu.selection == 0:
+        #         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Label," + self.getControl(9000).getSelectedItem().getLabel() + ")")
+        #         xbmc.executebuiltin("ActivateWindow(1122)")
+        #     del context_menu
 
     def onClick(self, controlId):
-        if controlId == 100:
+        if controlId == 9000:
             pass
 
     def onFocus(self, controlId):
         pass
+
+
+class ContextMenu(xbmcgui.WindowXMLDialog):
+
+    def __init__(self, *args, **kwargs):
+        xbmcgui.WindowXMLDialog.__init__(self)
+        self.labels = kwargs["labels"]
+
+    def onInit(self):
+        self._show_context_menu()
+
+    def _show_context_menu(self):
+        self._hide_buttons()
+        self._setup_menu()
+        self.setFocus(self.getControl(1001))
+
+    def _hide_buttons(self):
+        for button in range(1001, 1004):
+            self.getControl(button).setVisible(False)
+
+    def _setup_menu(self):
+        dialog_posx, dialog_posy = self.getControl(999).getPosition()
+        dialog_height = self.getControl(999).getHeight()
+        button_posx, button_posy = self.getControl(1001).getPosition()
+        button_height = self.getControl(1001).getHeight()
+        extra_height = (len(self.labels) - 1) * button_height
+        dialog_height = dialog_height + extra_height
+        dialog_posy = dialog_posy - (extra_height / 2)
+        button_posy = button_posy - (extra_height / 2)
+        self.getControl(999).setPosition(dialog_posx, dialog_posy)
+        self.getControl(999).setHeight(dialog_height)
+        for button in range(len(self.labels)):
+            self.getControl(button + 1001).setPosition(button_posx, button_posy + (button_height * button))
+            self.getControl(button + 1001).setLabel(self.labels[button])
+            self.getControl(button + 1001).setVisible(True)
+            self.getControl(button + 1001).setEnabled(True)
+
+    def _close_dialog(self, selection=None):
+        self.selection = selection
+        self.close()
+
+    def onClick(self, controlId):
+        self._close_dialog(controlId - 1001)
+
+    def onFocus(self, controlId):
+        pass
+
+    def onAction(self, action):
+        if (action.getId() in CANCEL_DIALOG) or (action.getId() in ACTION_CONTEXT_MENU):
+            self._close_dialog()
+
 
 if __name__ == '__main__':
     window = None
@@ -96,7 +153,7 @@ if __name__ == '__main__':
             gui = ColorConfigDialog(u'script-%s-colorconfig.xml' % addon_name, addon_path).doModal()
             del gui
         elif window == "trailers":
-            gui = GUI(u'script-%s-trailers.xml' % addon_name, addon_path).doModal()
+            gui = TrailerWindow(u'script-%s-trailers.xml' % addon_name, addon_path).doModal()
             del gui
     else:
         MoveProperties(container, focuscontrol)

@@ -41,6 +41,7 @@ def MoveProperties(container_number, focuscontrol):
     xbmc.executebuiltin("SetProperty(Icon,%s,home)" % (InfoLabel))
     xbmc.executebuiltin("SetFocus(%s)" % (str(focuscontrol)))
 
+
 def GetStringFromUrl(encurl):
     succeed = 0
     while succeed < 5:
