@@ -89,7 +89,13 @@ class GUI(xbmcgui.WindowXML):
                 context_menu.doModal()
                 log(context_menu.selection)
                 if context_menu.selection == 0:
-                    playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp|.m3u", False, False, 'special://videoplaylists/')
+                    if (focusedcontrol > 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featuredmusic)")):
+                        playlistpath = 'special://musicplaylists/'
+                    elif (focusedcontrol < 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featuredmusic)")):
+                        playlistpath = 'special://musicplaylists/'
+                    else:
+                        playlistpath = 'special://videoplaylists/'
+                    playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp|.m3u", False, False, playlistpath)
                     builtin = "Skin.SetString(FeaturedMovies" + focusedcontrol + "Content," + playlist + ")"
                     xbmc.executebuiltin(builtin)
                 elif context_menu.selection == 1:
