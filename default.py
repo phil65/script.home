@@ -102,9 +102,12 @@ class GUI(xbmcgui.WindowXML):
             elif xbmc.getCondVisibility("Control.HasFocus(9000)"):
                 pass
             elif xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),Icon) + Control.HasFocus(5010)] | [Substring(Control.GetLabel(4325),Icon) + Control.HasFocus(6010)]"):
-                builtin = "SetProperty(MenuItem," + xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)") + ",home)"
-                log(builtin)
+                itemid = xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)")
+                builtin = "SetProperty(MenuItem," + itemid + ",home)"
                 xbmc.executebuiltin(builtin)
+                for item in ["Type", "MultiFanart", "Label", "Path", "Icon"]:
+                    builtin = "Skin.SetString(ItemToEdit." + item + "," + xbmc.getInfoLabel("Skin.String(" + itemid + "." + item + ")") + ")"
+                    xbmc.executebuiltin(builtin)
                 xbmc.executebuiltin("ActivateWindow(1135)")
 
 
