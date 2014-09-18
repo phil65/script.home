@@ -83,13 +83,30 @@ class GUI(xbmcgui.WindowXML):
                 xbmc.executebuiltin("Control.Move(6003,1)")
 
         elif action_id in ACTION_CONTEXT_MENU:
-            pass
-        #     context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Label"])
-        #     context_menu.doModal()
-        #     if context_menu.selection == 0:
-        #         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Label," + self.getControl(9000).getSelectedItem().getLabel() + ")")
-        #         xbmc.executebuiltin("ActivateWindow(1122)")
-        #     del context_menu
+            if xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]"):
+                focusedcontrol = ""
+                for control in ["5010", "5011", "5012"]:
+                    if xbmc.getCondVisibility("Control.HasFocus(" + control + ")"):
+                        focusedcontrol = control
+                context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Content", "Set to Default"])
+                context_menu.doModal()
+                log(context_menu.selection)
+                if context_menu.selection == 0:
+                    playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp|.m3u", False, False, 'special://videoplaylists/')
+                    builtin = "Skin.SetString(FeaturedMovies" + focusedcontrol + "Content," + playlist + ")"
+                    xbmc.executebuiltin(builtin)
+                elif context_menu.selection == 1:
+                    builtin = "Skin.Reset(FeaturedMovies" + focusedcontrol + "Content)"
+                    xbmc.executebuiltin(builtin)
+                del context_menu
+            elif xbmc.getCondVisibility("Control.HasFocus(9000)"):
+                pass
+            elif xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),Icon) + Control.HasFocus(5010)] | [Substring(Control.GetLabel(4325),Icon) + Control.HasFocus(6010)]"):
+                builtin = "SetProperty(MenuItem," + xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)") + ",home)"
+                log(builtin)
+                xbmc.executebuiltin(builtin)
+                xbmc.executebuiltin("ActivateWindow(1135)")
+
 
     def onClick(self, controlId):
         if controlId == 9000:
