@@ -84,22 +84,33 @@ class GUI(xbmcgui.WindowXML):
 
         elif action_id in ACTION_CONTEXT_MENU:
             if xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]] | [Substring(Control.GetLabel(4325),featured) + [Control.HasFocus(6010) | Control.HasFocus(6011) | Control.HasFocus(6012)]]"):
-                focusedcontrol = str(self.getFocusId())
+                focusedcontrol = self.getFocusId()
+                if (focusedcontrol > 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4325),music)")):
+                    playlistpath = 'special://musicplaylists/'
+                    playlisttype = "Music"
+                elif (focusedcontrol < 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4321),music)")):
+                    playlistpath = 'special://musicplaylists/'
+                    playlisttype = "Music"
+                elif (focusedcontrol > 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4325),tv)")):
+                    playlistpath = 'special://videoplaylists/'
+                    playlisttype = "TV"
+                elif (focusedcontrol < 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4321),tv)")):
+                    playlistpath = 'special://videoplaylists/'
+                    playlisttype = "TV"
+                else:
+                    playlistpath = 'special://videoplaylists/'
+                    playlisttype = "Movies"
                 context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Content", "Set to Default"])
                 context_menu.doModal()
                 log(context_menu.selection)
+                log(focusedcontrol)
                 if context_menu.selection == 0:
-                    if (focusedcontrol > 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featuredmusic)")):
-                        playlistpath = 'special://musicplaylists/'
-                    elif (focusedcontrol < 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featuredmusic)")):
-                        playlistpath = 'special://musicplaylists/'
-                    else:
-                        playlistpath = 'special://videoplaylists/'
                     playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp|.m3u", False, False, playlistpath)
-                    builtin = "Skin.SetString(FeaturedMovies" + focusedcontrol + "Content," + playlist + ")"
+                    builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + "Content," + playlist + ")"
+                    log(builtin)
                     xbmc.executebuiltin(builtin)
                 elif context_menu.selection == 1:
-                    builtin = "Skin.Reset(FeaturedMovies" + focusedcontrol + "Content)"
+                    builtin = "Skin.Reset(Featured" + playlisttype + str(focusedcontrol) + "Content)"
                     xbmc.executebuiltin(builtin)
                 del context_menu
             elif xbmc.getCondVisibility("Control.HasFocus(9000)"):
