@@ -83,11 +83,8 @@ class GUI(xbmcgui.WindowXML):
                 xbmc.executebuiltin("Control.Move(6003,1)")
 
         elif action_id in ACTION_CONTEXT_MENU:
-            if xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]"):
-                focusedcontrol = ""
-                for control in ["5010", "5011", "5012"]:
-                    if xbmc.getCondVisibility("Control.HasFocus(" + control + ")"):
-                        focusedcontrol = control
+            if xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]] | [Substring(Control.GetLabel(4325),featured) + [Control.HasFocus(6010) | Control.HasFocus(6011) | Control.HasFocus(6012)]]"):
+                focusedcontrol = str(self.getFocusId())
                 context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Content", "Set to Default"])
                 context_menu.doModal()
                 log(context_menu.selection)
