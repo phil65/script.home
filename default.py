@@ -20,9 +20,6 @@
 import xbmcaddon
 import xbmcgui
 from Utils import *
-from ColorConfigDialog import ColorConfigDialog
-from TrailerWindow import TrailerWindow
-from FeaturedWindow import FeaturedWindow
 
 __addon__ = xbmcaddon.Addon()
 __addonid__ = __addon__.getAddonInfo('id')
@@ -228,14 +225,22 @@ if __name__ == '__main__':
             gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
             del gui
         elif window == "colorconfig":
+            from ColorConfigDialog import ColorConfigDialog
             gui = ColorConfigDialog(u'script-%s-colorconfig.xml' % addon_name, addon_path).doModal()
             del gui
         elif window == "trailers":
+            from TrailerWindow import TrailerWindow
             gui = TrailerWindow(u'script-%s-trailers.xml' % addon_name, addon_path).doModal()
             del gui
         elif window == "featured":
+            from FeaturedWindow import FeaturedWindow
             gui = FeaturedWindow(u'script-%s-featured.xml' % addon_name, addon_path).doModal()
             del gui
+        elif window == "dialogalbuminfo":
+            from DialogAlbumInfo import DialogAlbumInfo
+            gui = DialogAlbumInfo(u'script-%s-dialogalbuminfo.xml' % addon_name, addon_path).doModal()
+            del gui
+
     else:
         MoveProperties(container, focuscontrol)
     sys.modules.clear()
