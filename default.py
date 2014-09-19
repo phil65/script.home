@@ -126,7 +126,7 @@ class GUI(xbmcgui.WindowXML):
                 xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Disable," + xbmc.getInfoLabel("Container(9000).ListItem.Property(DisableIcon)") + ")")
                 xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Type)") + ")")
                 xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Path," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Path)") + ")")
-                context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Color Settings", "Furniture Settings", "Smart Playlist Manager"])
+                context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Color Settings", "Furniture Settings", "Smart Playlist Manager", "Hide / Unhide All Items"])
                 context_menu.doModal()
                 if context_menu.selection == 0:
                     Notify("Experimental")
@@ -137,6 +137,11 @@ class GUI(xbmcgui.WindowXML):
                     xbmc.executebuiltin("ActivateWindow(1131)")
                 elif context_menu.selection == 3:
                     xbmc.executebuiltin("ActivateWindow(1148)")
+                elif context_menu.selection == 4:
+                    if xbmc.getCondVisibility("IsEmpty(Window(home).Property(EditMode))"):
+                        xbmc.executebuiltin("SetProperty(EditMode,True,home)")
+                    else:
+                        xbmc.executebuiltin("ClearProperty(EditMode,home)")
             elif xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),Icon) + Control.HasFocus(5010)] | [Substring(Control.GetLabel(4325),Icon) + Control.HasFocus(6010)]"):
                 itemid = xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)")
                 builtin = "SetProperty(MenuItem," + itemid + ",home)"
