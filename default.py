@@ -102,8 +102,6 @@ class GUI(xbmcgui.WindowXML):
                     playlisttype = "Movies"
                 context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Content", "Set to Default"])
                 context_menu.doModal()
-                log(context_menu.selection)
-                log(focusedcontrol)
                 if context_menu.selection == 0:
                     playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp|.m3u", False, False, playlistpath)
                     builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + "Content," + playlist + ")"
@@ -114,7 +112,6 @@ class GUI(xbmcgui.WindowXML):
                     xbmc.executebuiltin(builtin)
                 del context_menu
             elif xbmc.getCondVisibility("Control.HasFocus(9000)"):
-                Notify("Experimental")
                 xbmc.executebuiltin("SetProperty(" + xbmc.getInfoLabel("Window(home).Property(MenuName)") + "," + xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)") + ",home)")
                 xbmc.executebuiltin("SetProperty(MenuItem," + xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)") + ",home)")
                 xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Label," + xbmc.getInfoLabel("Container(9000).ListItem.Label") + ")")
@@ -129,8 +126,17 @@ class GUI(xbmcgui.WindowXML):
                 xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Disable," + xbmc.getInfoLabel("Container(9000).ListItem.Property(DisableIcon)") + ")")
                 xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Type)") + ")")
                 xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Path," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Path)") + ")")
-
-                xbmc.executebuiltin("ActivateWindow(1122)")
+                context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Color Settings", "Furniture Settings", "Smart Playlist Manager"])
+                context_menu.doModal()
+                if context_menu.selection == 0:
+                    Notify("Experimental")
+                    xbmc.executebuiltin("ActivateWindow(1122)")
+                elif context_menu.selection == 1:
+                    xbmc.executebuiltin("ActivateWindow(1128)")
+                elif context_menu.selection == 2:
+                    xbmc.executebuiltin("ActivateWindow(1131)")
+                elif context_menu.selection == 3:
+                    xbmc.executebuiltin("ActivateWindow(1148)")
             elif xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),Icon) + Control.HasFocus(5010)] | [Substring(Control.GetLabel(4325),Icon) + Control.HasFocus(6010)]"):
                 itemid = xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)")
                 builtin = "SetProperty(MenuItem," + itemid + ",home)"
@@ -164,7 +170,7 @@ class ContextMenu(xbmcgui.WindowXMLDialog):
         self.setFocus(self.getControl(1001))
 
     def _hide_buttons(self):
-        for button in range(1001, 1004):
+        for button in range(1001, 1006):
             self.getControl(button).setVisible(False)
 
     def _setup_menu(self):
