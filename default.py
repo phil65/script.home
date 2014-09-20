@@ -81,38 +81,7 @@ class GUI(xbmcgui.WindowXML):
 
         elif action_id in ACTION_CONTEXT_MENU:
             if xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]] | [Substring(Control.GetLabel(4325),featured) + [Control.HasFocus(6010) | Control.HasFocus(6011) | Control.HasFocus(6012)]]"):
-                focusedcontrol = self.getFocusId()
-                if (focusedcontrol > 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4325),music)")):
-                    playlistpath = 'special://musicplaylists/'
-                    playlisttype = "Music"
-                elif (focusedcontrol < 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4321),music)")):
-                    playlistpath = 'special://musicplaylists/'
-                    playlisttype = "Music"
-                elif (focusedcontrol > 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4325),tv)")):
-                    playlistpath = 'special://videoplaylists/'
-                    playlisttype = "TV"
-                elif (focusedcontrol < 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4321),tv)")):
-                    playlistpath = 'special://videoplaylists/'
-                    playlisttype = "TV"
-                else:
-                    playlistpath = 'special://videoplaylists/'
-                    playlisttype = "Movies"
-                context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Set to Smart Playlist", "Set to Library Node", "Set to Default"])
-                context_menu.doModal()
-                if context_menu.selection == 0:
-                    playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp|.m3u", False, False, playlistpath)
-                    builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + "Content," + playlist + ")"
-                    log(builtin)
-                    xbmc.executebuiltin(builtin)
-                elif context_menu.selection == 1:
-                    playlist = xbmcgui.Dialog().browse(0, "Choose Path", 'files', "", True, False, "library://video/")
-                    builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + "Content," + playlist + ")"
-                    log(builtin)
-                    xbmc.executebuiltin(builtin)
-                elif context_menu.selection == 2:
-                    builtin = "Skin.Reset(Featured" + playlisttype + str(focusedcontrol) + "Content)"
-                    xbmc.executebuiltin(builtin)
-                del context_menu
+                self.FeaturedContextMenu()
             elif xbmc.getCondVisibility("Control.HasFocus(9000)"):
                 self.HomeContextMenu()
             elif xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),Icon) + Control.HasFocus(5010)] | [Substring(Control.GetLabel(4325),Icon) + Control.HasFocus(6010)]"):
@@ -158,6 +127,39 @@ class GUI(xbmcgui.WindowXML):
         elif context_menu.selection == 5:
             xbmc.executebuiltin("ActivateWindow(1158)")
 
+    def FeaturedContextMenu(self):
+        focusedcontrol = self.getFocusId()
+        if (focusedcontrol > 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4325),music)")):
+            playlistpath = 'special://musicplaylists/'
+            playlisttype = "Music"
+        elif (focusedcontrol < 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4321),music)")):
+            playlistpath = 'special://musicplaylists/'
+            playlisttype = "Music"
+        elif (focusedcontrol > 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4325),tv)")):
+            playlistpath = 'special://videoplaylists/'
+            playlisttype = "TV"
+        elif (focusedcontrol < 6000) and (xbmc.getCondVisibility("Substring(Control.GetLabel(4321),tv)")):
+            playlistpath = 'special://videoplaylists/'
+            playlisttype = "TV"
+        else:
+            playlistpath = 'special://videoplaylists/'
+            playlisttype = "Movies"
+        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Set to Smart Playlist", "Set to Library Node", "Set to Default"])
+        context_menu.doModal()
+        if context_menu.selection == 0:
+            playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp|.m3u", False, False, playlistpath)
+            builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + "Content," + playlist + ")"
+            log(builtin)
+            xbmc.executebuiltin(builtin)
+        elif context_menu.selection == 1:
+            playlist = xbmcgui.Dialog().browse(0, "Choose Path", 'files', "", True, False, "library://video/")
+            builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + "Content," + playlist + ")"
+            log(builtin)
+            xbmc.executebuiltin(builtin)
+        elif context_menu.selection == 2:
+            builtin = "Skin.Reset(Featured" + playlisttype + str(focusedcontrol) + "Content)"
+            xbmc.executebuiltin(builtin)
+        del context_menu
 
     def onClick(self, controlId):
         if controlId == 9000:
