@@ -97,7 +97,7 @@ class GUI(xbmcgui.WindowXML):
                 else:
                     playlistpath = 'special://videoplaylists/'
                     playlisttype = "Movies"
-                context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Content", "Set to Default"])
+                context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Set to Smart Playlist", "Set to Library Node", "Set to Default"])
                 context_menu.doModal()
                 if context_menu.selection == 0:
                     playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp|.m3u", False, False, playlistpath)
@@ -105,42 +105,16 @@ class GUI(xbmcgui.WindowXML):
                     log(builtin)
                     xbmc.executebuiltin(builtin)
                 elif context_menu.selection == 1:
+                    playlist = xbmcgui.Dialog().browse(0, "Choose Path", 'files', "", True, False, "library://video/")
+                    builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + "Content," + playlist + ")"
+                    log(builtin)
+                    xbmc.executebuiltin(builtin)
+                elif context_menu.selection == 2:
                     builtin = "Skin.Reset(Featured" + playlisttype + str(focusedcontrol) + "Content)"
                     xbmc.executebuiltin(builtin)
                 del context_menu
             elif xbmc.getCondVisibility("Control.HasFocus(9000)"):
-                xbmc.executebuiltin("SetProperty(" + xbmc.getInfoLabel("Window(home).Property(MenuName)") + "," + xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)") + ",home)")
-                xbmc.executebuiltin("SetProperty(MenuItem," + xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)") + ",home)")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Label," + xbmc.getInfoLabel("Container(9000).ListItem.Label") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.MultiFanart," + xbmc.getInfoLabel("Container(9000).ListItem.Icon") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Icon," + xbmc.getInfoLabel("Container(9000).ListItem.Property(BigIcon)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.WidgetTitle," + xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetTitle)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2Title," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.InfoLine," + xbmc.getInfoLabel("Container(9000).ListItem.Property(InfoLine)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.SubMenu," + xbmc.getInfoLabel("Container(9000).ListItem.Property(submenuVisibility)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Disable," + xbmc.getInfoLabel("Container(9000).ListItem.Property(DisableIcon)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Type)") + ")")
-                xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Path," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Path)") + ")")
-                context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Color Settings", "Furniture Settings", "Smart Playlist Manager", "Hide / Unhide All Items", "NowPlaying Widget Options"])
-                context_menu.doModal()
-                if context_menu.selection == 0:
-                    Notify("Experimental")
-                    xbmc.executebuiltin("ActivateWindow(1122)")
-                elif context_menu.selection == 1:
-                    xbmc.executebuiltin("ActivateWindow(1128)")
-                elif context_menu.selection == 2:
-                    xbmc.executebuiltin("ActivateWindow(1131)")
-                elif context_menu.selection == 3:
-                    xbmc.executebuiltin("ActivateWindow(1148)")
-                elif context_menu.selection == 4:
-                    if xbmc.getCondVisibility("IsEmpty(Window(home).Property(EditMode))"):
-                        xbmc.executebuiltin("SetProperty(EditMode,True,home)")
-                    else:
-                        xbmc.executebuiltin("ClearProperty(EditMode,home)")
-                elif context_menu.selection == 5:
-                    xbmc.executebuiltin("ActivateWindow(1158)")
+                self.HomeContextMenu()
             elif xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),Icon) + Control.HasFocus(5010)] | [Substring(Control.GetLabel(4325),Icon) + Control.HasFocus(6010)]"):
                 itemid = xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)")
                 builtin = "SetProperty(MenuItem," + itemid + ",home)"
@@ -149,6 +123,40 @@ class GUI(xbmcgui.WindowXML):
                     builtin = "Skin.SetString(ItemToEdit." + item + "," + xbmc.getInfoLabel("Skin.String(" + itemid + "." + item + ")") + ")"
                     xbmc.executebuiltin(builtin)
                 xbmc.executebuiltin("ActivateWindow(1135)")
+
+    def HomeContextMenu(self):
+        xbmc.executebuiltin("SetProperty(" + xbmc.getInfoLabel("Window(home).Property(MenuName)") + "," + xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)") + ",home)")
+        xbmc.executebuiltin("SetProperty(MenuItem," + xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)") + ",home)")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Label," + xbmc.getInfoLabel("Container(9000).ListItem.Label") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.MultiFanart," + xbmc.getInfoLabel("Container(9000).ListItem.Icon") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Icon," + xbmc.getInfoLabel("Container(9000).ListItem.Property(BigIcon)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.WidgetTitle," + xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetTitle)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2Title," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.InfoLine," + xbmc.getInfoLabel("Container(9000).ListItem.Property(InfoLine)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.SubMenu," + xbmc.getInfoLabel("Container(9000).ListItem.Property(submenuVisibility)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Disable," + xbmc.getInfoLabel("Container(9000).ListItem.Property(DisableIcon)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Type)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Path," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Path)") + ")")
+        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Color Settings", "Furniture Settings", "Smart Playlist Manager", "Hide / Unhide All Items", "NowPlaying Widget Options"])
+        context_menu.doModal()
+        if context_menu.selection == 0:
+            Notify("Experimental")
+            xbmc.executebuiltin("ActivateWindow(1122)")
+        elif context_menu.selection == 1:
+            xbmc.executebuiltin("ActivateWindow(1128)")
+        elif context_menu.selection == 2:
+            xbmc.executebuiltin("ActivateWindow(1131)")
+        elif context_menu.selection == 3:
+            xbmc.executebuiltin("ActivateWindow(1148)")
+        elif context_menu.selection == 4:
+            if xbmc.getCondVisibility("IsEmpty(Window(home).Property(EditMode))"):
+                xbmc.executebuiltin("SetProperty(EditMode,True,home)")
+            else:
+                xbmc.executebuiltin("ClearProperty(EditMode,home)")
+        elif context_menu.selection == 5:
+            xbmc.executebuiltin("ActivateWindow(1158)")
 
 
     def onClick(self, controlId):
