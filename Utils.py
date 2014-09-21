@@ -24,7 +24,7 @@ def MoveProperties(container_number, focuscontrol):
                   "banner", "characterart", "discart", "Year", "Plot", "Tagline", "OriginalTitle", "Type", "TVShowTitle",
                   "Director", "Rating", "StatusID", "Status", "NextTitle", "LatestTitle", "LatestDate", "Studio", "Budget",
                   "Country", "Network", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
-                  "mpaa", "Id", "Channel", "Publisher", "Description", "Artist_Description", "Album_Description", "Genre", "RecordLabel", "Premiered", "Duration",
+                  "mpaa", "Id", "Channel", "Publisher", "Description", "Artist_Description", "Album_Description", "Genre", "Album_Label", "Premiered", "Duration",
                   "Folder", "EpisodeNumber", "Version", "DBID", "Mood", "Style", "Theme", "Artist_Instrument", "Artist_Born", "PlotOutline",
                   "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
     for prop in Properties:
