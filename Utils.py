@@ -20,7 +20,7 @@ Addon_Data_Path = os.path.join(xbmc.translatePath("special://profile/addon_data/
 
 
 def MoveProperties(container_number, focuscontrol):
-    Properties = ["Label", "Label2", "icon", "thumb", "fanart", "Path", "Poster", "clearlogo", "clearart", "landscape", "Season",
+    Properties = ["Label", "Label2", "icon", "thumb", "fanart", "Path", "RootPath", "LibraryPath", "Poster", "clearlogo", "clearart", "landscape", "Season",
                   "banner", "characterart", "discart", "Year", "Plot", "Tagline", "OriginalTitle", "Type", "TVShowTitle",
                   "Director", "Rating", "StatusID", "Status", "NextTitle", "LatestTitle", "LatestDate", "Studio", "Budget",
                   "Country", "Network", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
