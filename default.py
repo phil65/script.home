@@ -78,9 +78,13 @@ class GUI(xbmcgui.WindowXML):
                 xbmc.executebuiltin("Control.Move(6002,1)")
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6012)"):
                 xbmc.executebuiltin("Control.Move(6003,1)")
-            elif xbmc.getCondVisibility("!Substring(Control.GetLabel(4321),featured) + !Substring(Control.GetLabel(4321),classic) + Control.HasFocus(5010)"):
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),image) + Control.HasFocus(5010)"):
                 xbmc.executebuiltin("SetFocus(5014)")
-            elif xbmc.getCondVisibility("!Substring(Control.GetLabel(4325),featured) + !Substring(Control.GetLabel(4325),classic) + Control.HasFocus(6010)"):
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),image) + Control.HasFocus(6010)"):
+                xbmc.executebuiltin("SetFocus(6014)")
+            elif xbmc.getCondVisibility("Control.HasFocus(5010)"):
+                xbmc.executebuiltin("SetFocus(5014)")
+            elif xbmc.getCondVisibility("Control.HasFocus(6010)"):
                 xbmc.executebuiltin("SetFocus(6014)")
 
         elif action_id in ACTION_CONTEXT_MENU:
