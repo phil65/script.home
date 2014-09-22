@@ -79,9 +79,11 @@ class GUI(xbmcgui.WindowXML):
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6012)"):
                 xbmc.executebuiltin("Control.Move(6003,1)")
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),image) + Control.HasFocus(5010)"):
-                xbmc.executebuiltin("SetFocus(5014)")
+                xbmc.executebuiltin("SetProperty(WidgetPosition,Widget1,home)")
+                xbmc.executebuiltin("SetFocus(22222)")
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),image) + Control.HasFocus(6010)"):
-                xbmc.executebuiltin("SetFocus(6014)")
+                xbmc.executebuiltin("SetProperty(WidgetPosition,Widget2,home)")
+                xbmc.executebuiltin("SetFocus(22222)")
             elif xbmc.getCondVisibility("Control.HasFocus(5010)"):
                 xbmc.executebuiltin("SetFocus(5014)")
             elif xbmc.getCondVisibility("Control.HasFocus(6010)"):
