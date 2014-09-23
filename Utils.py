@@ -39,7 +39,7 @@ def MoveProperties(container_number, focuscontrol):
 
 def Main_Menu_Move():
     xbmc.executebuiltin("SetProperty(scrolling,true,home)")
-    xbmc.sleep(100)
+    xbmc.sleep(200)
     xbmc.executebuiltin("ClearProperty(Widget2Type,home)")
     xbmc.executebuiltin("ClearProperty(Widget1Type,home)")
     xbmc.executebuiltin("ClearProperty(Widget2Title,home)")
