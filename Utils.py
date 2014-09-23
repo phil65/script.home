@@ -38,19 +38,23 @@ def MoveProperties(container_number, focuscontrol):
     xbmc.executebuiltin("SetFocus(%s)" % (str(focuscontrol)))
 
 def Main_Menu_Move():
+
     xbmc.executebuiltin("SetProperty(scrolling,true,home)")
     xbmc.sleep(200)
+    Widget2Type = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)")
+    WidgetType = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)")
     xbmc.executebuiltin("ClearProperty(Widget2Type,home)")
     xbmc.executebuiltin("ClearProperty(Widget1Type,home)")
     xbmc.executebuiltin("ClearProperty(Widget2Title,home)")
     xbmc.executebuiltin("ClearProperty(Widget1Title,home)")
-    xbmc.sleep(200)
+    xbmc.sleep(700)
     xbmc.executebuiltin("SetProperty(Widget2Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)") + ",home)")
     xbmc.executebuiltin("SetProperty(Widget1Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)") + ",home)")
     xbmc.executebuiltin("SetProperty(Widget2Title," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)") + ",home)")
     xbmc.executebuiltin("SetProperty(Widget1Title," + xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetTitle)") + ",home)")
-    xbmc.sleep(700)
-    xbmc.executebuiltin("ClearProperty(scrolling,home)")
+    xbmc.sleep(25) # possible fix for workaround: wnd.setProperty()
+    if (Widget2Type == xbmc.getInfoLabel("Window(home).Property(Widget2Type)")) and (WidgetType == xbmc.getInfoLabel("Window(home).Property(Widget1Type)")):
+        xbmc.executebuiltin("ClearProperty(scrolling,home)")
 
 
 def GetStringFromUrl(encurl):
