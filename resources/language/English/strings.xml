@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<!-- Translated using Transifex web application. For support, or if you would like to to help out, please visit your language team! -->
-<!-- English language-Team URL: http://www.transifex.com/projects/p/xbmc-addons/language/en/ -->
-<!-- Report language file syntax bugs at: alanwww1@xbmc.org -->
-
 <strings>
+    <string id="34001">Download more background packs</string>
+    <string id="34002">List of locally installed zip files</string>
+    <string id="34003">Zip extracted successfully</string>
+    <string id="34004">Error when installing zip</string>
+    <string id="34005">Downloading background pack...</string>
+    <string id="34006">Choose zip to download</string>
+    <string id="34007">No remote zips found</string>
+    <string id="34008">Background Packs</string>
+    <string id="34009">Themes</string>
+    <string id="34010">What do you want to download?</string>
+    <string id="34011">Download more zips</string>
+    <string id="34012">Download Video Genre Icons</string>
+    <string id="34013">Video Genre Icons</string>
+    <string id="34015">Video Genre Fanart</string>
+    <string id="34016">Conditional Weather Fanart</string>
+    <string id="34017">Download Conditional Weather Fanart</string>
+    <string id="34019">Music Genre Icons</string>
+    <string id="34020">Download Music Genre Icons</string>
+    <string id="34022">Year Icons</string>
+    <string id="34023">Year Fanart</string>
+    <string id="34026">Download Scripts</string>
+    <string id="34027">Scripts</string>
 </strings>
