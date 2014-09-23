@@ -60,22 +60,9 @@ class GUI(xbmcgui.WindowXML):
 
     def onAction(self, action):
         action_id = action.getId()
-        if action_id in ACTION_LEFT:
+        if (action_id in ACTION_LEFT) or (action_id in ACTION_RIGHT):
             if xbmc.getCondVisibility("Control.HasFocus(9000)"):
-                xbmc.executebuiltin("SetProperty(scrolling,true,home)")
-                xbmc.sleep(300)
-                xbmc.executebuiltin("SetProperty(Widget2Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)") + ",home)")
-                xbmc.executebuiltin("SetProperty(Widget1Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)") + ",home)")
-                xbmc.sleep(700)
-                xbmc.executebuiltin("ClearProperty(scrolling,home)")
-        if action_id in ACTION_RIGHT:
-            if xbmc.getCondVisibility("Control.HasFocus(9000)"):
-                xbmc.executebuiltin("SetProperty(scrolling,true,home)")
-                xbmc.sleep(300)
-                xbmc.executebuiltin("SetProperty(Widget2Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)") + ",home)")
-                xbmc.executebuiltin("SetProperty(Widget1Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)") + ",home)")
-                xbmc.sleep(700)
-                xbmc.executebuiltin("ClearProperty(scrolling,home)")
+                Main_Menu_Move()
         if action_id in ACTION_SHOW_INFO:
             if xbmc.getCondVisibility("Control.HasFocus(9000)"):
                 if xbmc.getCondVisibility("IsEmpty(Window(home).Property(DisableWidgets))"):
