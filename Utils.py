@@ -33,17 +33,15 @@ def MoveProperties(container_number, focuscontrol):
                   "Folder", "EpisodeNumber", "Version", "DBID", "Artist_Mood", "Album_Mood", "Album_Style", "Artist_Style", "Album_Theme", "Artist_Instrument", "Artist_Born", "PlotOutline",
                   "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
     for prop in Properties:
-        InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Property(%s)]" % (str(container_number), prop))
+        InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Property(%s)" % (str(container_number), prop))
         if InfoLabel.strip() is "":
-            InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.%s]" % (str(container_number), prop))
+            InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.%s" % (str(container_number), prop))
         if InfoLabel.strip() is "":
-            InfoLabel = xbmc.getInfoLabel("$ESCINFO[Container(%s).ListItem.Art(%s)]" % (str(container_number), prop))
-        builtin = "SetProperty(%s,%s,home)" % (prop, InfoLabel.strip())
-        xbmc.executebuiltin(builtin)
+            InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Art(%s)" % (str(container_number), prop))
+        xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
     xbmc.executebuiltin("SetFocus(%s)" % (str(focuscontrol)))
 
 def Main_Menu_Move():
-
     xbmcgui.Window(10000).setProperty("scrolling", "true")
     xbmc.sleep(150)
     Widget2Type = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)")
