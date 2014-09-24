@@ -39,7 +39,7 @@ def MoveProperties(container_number, focuscontrol):
 
 def Main_Menu_Move():
 
-    xbmc.executebuiltin("SetProperty(scrolling,true,home)")
+    xbmcgui.Window(10000).setProperty("scrolling", "true")
     xbmc.sleep(200)
     Widget2Type = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)")
     WidgetType = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)")
@@ -48,12 +48,12 @@ def Main_Menu_Move():
     xbmcgui.Window(10000).clearProperty("Widget1Title")
     xbmcgui.Window(10000).clearProperty("Widget2Title")
     xbmc.sleep(200)
-    xbmcgui.Window(10000).setProperty("Widget2Type", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)")
-    xbmcgui.Window(10000).setProperty("Widget1Type", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)")
-    xbmcgui.Window(10000).setProperty("Widget2Title", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)")
-    xbmcgui.Window(10000).setProperty("Widget1Title", xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetTitle)")
+    xbmcgui.Window(10000).setProperty("Widget2Type", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)"))
+    xbmcgui.Window(10000).setProperty("Widget1Type", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)"))
+    xbmcgui.Window(10000).setProperty("Widget2Title", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)"))
+    xbmcgui.Window(10000).setProperty("Widget1Title", xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetTitle)"))
     if (Widget2Type == xbmc.getInfoLabel("Window(home).Property(Widget2Type)")) and (WidgetType == xbmc.getInfoLabel("Window(home).Property(Widget1Type)")):
-        xbmc.executebuiltin("ClearProperty(scrolling,home)")
+        xbmcgui.Window(10000).clearProperty("scrolling")
 
 
 def GetStringFromUrl(encurl):
