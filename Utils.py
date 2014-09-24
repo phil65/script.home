@@ -20,6 +20,11 @@ Addon_Data_Path = os.path.join(xbmc.translatePath("special://profile/addon_data/
 
 
 def MoveProperties(container_number, focuscontrol):
+    focusedcontrol = "todo"
+    if container_number == "focused":
+        container_number = focusedcontrol
+    if focuscontrol == "focused":
+        focuscontrol = focusedcontrol
     Properties = ["Label", "Label2", "icon", "thumb", "fanart", "Path", "RootPath", "LibraryPath", "Poster", "clearlogo", "clearart", "landscape", "Season",
                   "banner", "characterart", "discart", "Year", "Plot", "Tagline", "OriginalTitle", "Album_Type", "Type", "TVShowTitle", "imdbid",
                   "Director", "Rating", "StatusID", "Status", "NextTitle", "LatestTitle", "LatestDate", "Studio", "Budget", "StarRating",
@@ -40,7 +45,7 @@ def MoveProperties(container_number, focuscontrol):
 def Main_Menu_Move():
 
     xbmcgui.Window(10000).setProperty("scrolling", "true")
-    xbmc.sleep(200)
+    xbmc.sleep(150)
     Widget2Type = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)")
     WidgetType = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)")
     # xbmcgui.Window(10000).clearProperty("Widget1Type")

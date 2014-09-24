@@ -56,10 +56,18 @@ class TrailerWindow(xbmcgui.WindowXML):
         action_id = action.getId()
         if action_id in ACTION_PREVIOUS_MENU:
             self.close()
+        elif action_id in ACTION_SHOW_INFO:
+            focusedcontrol = self.getFocusId()
+            MoveProperties(focusedcontrol, focusedcontrol)
+            xbmc.executebuiltin("SetProperty(PanelWidgetInfo,true,home))")
+            xbmc.executebuiltin("SetProperty(WidgetPosition,Widget1,home)")
+            xbmc.executebuiltin("SetProperty(WidgetType,movies,home)")
+            builtin = "RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("ListItem.Property(ID)"), xbmc.getInfoLabel("ListItem.Property(imdbid)"))
+            xbmc.executebuiltin(builtin)
+            xbmc.executebuiltin("ActivateWindow(1165)")
 
     def onClick(self, controlId):
-        if controlId == 18:
-            pass
+        pass
 
     def onFocus(self, controlId):
         pass
