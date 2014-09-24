@@ -47,7 +47,7 @@ def Main_Menu_Move():
     xbmc.executebuiltin("ClearProperty(Widget1Type,home)")
     xbmc.executebuiltin("ClearProperty(Widget2Title,home)")
     xbmc.executebuiltin("ClearProperty(Widget1Title,home)")
-    xbmc.sleep(700)
+    xbmc.sleep(500)
     xbmc.executebuiltin("SetProperty(Widget2Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)") + ",home)")
     xbmc.executebuiltin("SetProperty(Widget1Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)") + ",home)")
     xbmc.executebuiltin("SetProperty(Widget2Title," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)") + ",home)")
