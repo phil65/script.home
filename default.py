@@ -39,7 +39,10 @@ ACTION_SHOW_INFO = [11]
 ACTION_EXIT_SCRIPT = [13]
 ACTION_DOWN = [4]
 ACTION_UP = [3]
+ACTION_SCROLL = [1, 2, 5, 6, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149]
 ACTION_LEFT = [1]
+ACTION_PAGE_UP = [5]
+ACTION_PAGE_DOWN = [6]
 ACTION_RIGHT = [2]
 ACTION_0 = [58, 18]
 ACTION_PLAY = [79]
@@ -60,7 +63,7 @@ class GUI(xbmcgui.WindowXML):
 
     def onAction(self, action):
         action_id = action.getId()
-        if (action_id in ACTION_LEFT) or (action_id in ACTION_RIGHT):
+        if action_id in ACTION_SCROLL:
             if xbmc.getCondVisibility("Control.HasFocus(9000)"):
                 Main_Menu_Move()
         if action_id in ACTION_SHOW_INFO:
