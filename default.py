@@ -57,6 +57,9 @@ class GUI(xbmcgui.WindowXML):
 
     def onInit(self, startGUI=True):
         log('onInit')
+        xbmc.sleep(200)
+        if xbmc.getCondVisibility("Control.HasFocus(9000)"):
+            Main_Menu_Move()
 
     def getControls(self):
         pass
