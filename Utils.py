@@ -55,6 +55,8 @@ def Main_Menu_Move():
     xbmcgui.Window(10000).setProperty("Widget1Type", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)"))
     xbmcgui.Window(10000).setProperty("Widget2Title", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)"))
     xbmcgui.Window(10000).setProperty("Widget1Title", xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetTitle)"))
+    xbmcgui.Window(10000).setProperty("Widget2Content", xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Content)"))
+    xbmcgui.Window(10000).setProperty("Widget1Content", xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetContent)"))
     if (Widget2Type == xbmc.getInfoLabel("Window(home).Property(Widget2Type)")) and (WidgetType == xbmc.getInfoLabel("Window(home).Property(Widget1Type)")):
         xbmcgui.Window(10000).clearProperty("scrolling")
 

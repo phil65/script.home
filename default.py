@@ -123,6 +123,8 @@ class GUI(xbmcgui.WindowXML):
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.WidgetTitle," + xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetTitle)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2Title," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.WidgetContent," + xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetContent)") + ")")
+        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2Content," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Content)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.InfoLine," + xbmc.getInfoLabel("Container(9000).ListItem.Property(InfoLine)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.SubMenu," + xbmc.getInfoLabel("Container(9000).ListItem.Property(submenuVisibility)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Disable," + xbmc.getInfoLabel("Container(9000).ListItem.Property(DisableIcon)") + ")")
