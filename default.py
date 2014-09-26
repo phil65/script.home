@@ -57,10 +57,6 @@ class GUI(xbmcgui.WindowXML):
 
     def onInit(self, startGUI=True):
         log('onInit')
-        self.ClearProperty("Widget1Type")
-        self.ClearProperty("Widget2Type")
-        xbmc.sleep(500)
-        Main_Menu_Move()
 
     def getControls(self):
         pass
