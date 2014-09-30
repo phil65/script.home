@@ -145,7 +145,6 @@ class GUI(xbmcgui.WindowXML):
         context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Color Settings", "Furniture Settings", "Hide / Unhide All Items", "NowPlaying Widget Options"])
         context_menu.doModal()
         if context_menu.selection == 0:
-            Notify("Experimental")
             xbmc.executebuiltin("ActivateWindow(1122)")
         elif context_menu.selection == 1:
             xbmc.executebuiltin("ActivateWindow(1128)")
