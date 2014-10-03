@@ -28,18 +28,20 @@ def MoveProperties(container_number, focuscontrol):
     InfoLabels = ["Label", "Label2", "icon", "thumb", "Path", "Season", "Year", "Plot", "Tagline", "OriginalTitle", "TVShowTitle",
                   "Director", "Rating", "Studio", "StarRating", "Country", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
                   "mpaa", "Genre", "Premiered", "Duration", "Folder", "Episode", "DBID", "PlotOutline", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
-    Properties = ["Path", "Year", "Plot", "Tagline", "OriginalTitle", "Album_Type", "Type", "TVShowTitle", "imdbid",
-                  "Director", "Rating", "Studio", "StarRating", "Country", "PercentPlayed", "Album_Genre", "Artist_Genre",
-                  "mpaa", "Id", "Description", "Artist_Description", "Album_Description", "Genre", "Album_Label", "Premiered", "Duration",
+    Properties = ["Path", "Album_Type", "Type", "imdbid", "StarRating", "Country", "Album_Genre", "Artist_Genre", "Id", "Description", "Artist_Description", "Album_Description", "Album_Label",
                   "DBID", "Artist_Mood", "Album_Mood", "Album_Style", "Artist_Style", "Album_Theme", "Artist_Instrument", "Artist_Born",
-                  "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
+                  "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive"]
     Art = ["fanart", "tvshow.fanart", "poster", "tvshow.poster", "clearlogo", "tvshow.clearlogo", "clearart", "tvshow.clearart", "landscape", "tvshow.landscape",
            "banner", "characterart", "tvshow.banner", "tvshow.characterart", "discart"]
-    for prop in Properties:
-        InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Property(%s)" % (str(container_number), prop))
-        xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
     for prop in InfoLabels:
         InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.%s" % (str(container_number), prop))
+        xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
+    for prop in Properties:
+        InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Property(%s)" % (str(container_number), prop))
+    #    Notify(InfoLabel)
+        if (InfoLabel.strip() == "") and (prop in InfoLabels):
+            Notify("overwrite")
+            InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.%s" % (str(container_number), prop))
         xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
     for prop in Art:
         InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Art(%s)" % (str(container_number), prop))
