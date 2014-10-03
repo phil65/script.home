@@ -25,19 +25,24 @@ def MoveProperties(container_number, focuscontrol):
         container_number = focusedcontrol
     if focuscontrol == "focused":
         focuscontrol = focusedcontrol
-    Properties = ["Label", "Label2", "icon", "thumb", "fanart", "tvshow.fanart", "Path", "poster", "tvshow.poster", "clearlogo", "tvshow.clearlogo", "clearart", "tvshow.clearart", "landscape", "tvshow.landscape", "Season",
-                  "banner", "characterart", "tvshow.banner", "tvshow.characterart", "discart", "Year", "Plot", "Tagline", "OriginalTitle", "Album_Type", "Type", "TVShowTitle", "imdbid",
-                  "Director", "Rating", "StatusID", "Status", "NextTitle", "LatestTitle", "LatestDate", "Studio", "Budget", "StarRating",
-                  "Country", "Network", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect", "Album_Genre", "Artist_Genre",
-                  "mpaa", "Id", "Channel", "Publisher", "Description", "Artist_Description", "Album_Description", "Genre", "Album_Label", "Premiered", "Duration",
-                  "Folder", "EpisodeNumber", "Version", "DBID", "Artist_Mood", "Album_Mood", "Album_Style", "Artist_Style", "Album_Theme", "Artist_Instrument", "Artist_Born", "PlotOutline",
+    InfoLabels = ["Label", "Label2", "icon", "thumb", "Path", "Season", "Year", "Plot", "Tagline", "OriginalTitle", "TVShowTitle",
+                  "Director", "Rating", "Studio", "StarRating", "Country", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
+                  "mpaa", "Genre", "Premiered", "Duration", "Folder", "Episode", "DBID", "PlotOutline", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
+    Properties = ["Path", "Year", "Plot", "Tagline", "OriginalTitle", "Album_Type", "Type", "TVShowTitle", "imdbid",
+                  "Director", "Rating", "Studio", "StarRating", "Country", "PercentPlayed", "Album_Genre", "Artist_Genre",
+                  "mpaa", "Id", "Description", "Artist_Description", "Album_Description", "Genre", "Album_Label", "Premiered", "Duration",
+                  "DBID", "Artist_Mood", "Album_Mood", "Album_Style", "Artist_Style", "Album_Theme", "Artist_Instrument", "Artist_Born",
                   "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
+    Art = ["fanart", "tvshow.fanart", "poster", "tvshow.poster", "clearlogo", "tvshow.clearlogo", "clearart", "tvshow.clearart", "landscape", "tvshow.landscape",
+           "banner", "characterart", "tvshow.banner", "tvshow.characterart", "discart"]
     for prop in Properties:
         InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Property(%s)" % (str(container_number), prop))
-        if InfoLabel.strip() is "":
-            InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.%s" % (str(container_number), prop))
-        if InfoLabel.strip() is "":
-            InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Art(%s)" % (str(container_number), prop))
+        xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
+    for prop in InfoLabels:
+        InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.%s" % (str(container_number), prop))
+        xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
+    for prop in Art:
+        InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Art(%s)" % (str(container_number), prop))
         xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
     xbmc.executebuiltin("SetFocus(%s)" % (str(focuscontrol)))
 
