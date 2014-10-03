@@ -107,9 +107,17 @@ class GUI(xbmcgui.WindowXML):
                 xbmc.executebuiltin("SetProperty(WidgetPosition,Widget2,home)")
                 xbmc.executebuiltin("SetFocus(22222)")
             elif xbmc.getCondVisibility("Control.HasFocus(5010)"):
-                xbmc.executebuiltin("SetFocus(5014)")
+                xbmcgui.Window(10000).setProperty("PanelWidgetInfo", "true")
+                xbmcgui.Window(10000).setProperty("WidgetPosition", "Widget1")
+                xbmcgui.Window(10000).setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4321)"))
+                # <onfocus condition="Substring(Control.GetLabel(4321),movie) + IsEmpty(Container(5010).ListItem.DBID)">RunScript(script.extendedinfo,info=extendedinfo,id=$INFO[Container(5010).ListItem.Property(ID)],imdbid=$INFO[Container(5010).ListItem.Property(imdbid)])
+                MoveProperties(5010, 5055)
             elif xbmc.getCondVisibility("Control.HasFocus(6010)"):
-                xbmc.executebuiltin("SetFocus(6014)")
+                xbmcgui.Window(10000).setProperty("PanelWidgetInfo", "true")
+                xbmcgui.Window(10000).setProperty("WidgetPosition", "Widget2")
+                xbmcgui.Window(10000).setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4325)"))
+                # <onfocus condition="Substring(Control.GetLabel(4321),movie) + IsEmpty(Container(5010).ListItem.DBID)">RunScript(script.extendedinfo,info=extendedinfo,id=$INFO[Container(5010).ListItem.Property(ID)],imdbid=$INFO[Container(5010).ListItem.Property(imdbid)])
+                MoveProperties(6010, 5055)
 
         elif action_id in ACTION_CONTEXT_MENU:
             if xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]] | [Substring(Control.GetLabel(4325),featured) + [Control.HasFocus(6010) | Control.HasFocus(6011) | Control.HasFocus(6012)]]"):
