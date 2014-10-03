@@ -40,7 +40,7 @@ def MoveProperties(container_number, focuscontrol):
         InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.Property(%s)" % (str(container_number), prop))
     #    Notify(InfoLabel)
         if (InfoLabel.strip() == "") and (prop in InfoLabels):
-            Notify("overwrite")
+      #      Notify("overwrite")
             InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.%s" % (str(container_number), prop))
         xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
     for prop in Art:
