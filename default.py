@@ -119,7 +119,7 @@ class GUI(xbmcgui.WindowXML):
                 xbmcgui.Window(10000).setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4325)"))
                 if xbmc.getCondVisibility("Substring(Control.GetLabel(4325),movie) + IsEmpty(Container(6010).ListItem.DBID)"):
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=$INFO[Container(6010).ListItem.Property(ID)],imdbid=$INFO[Container(6010).ListItem.Property(imdbid)])")
-            MoveProperties(6010, 5055)
+                MoveProperties(6010, 5055)
 
         elif action_id in ACTION_CONTEXT_MENU:
             if xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]] | [Substring(Control.GetLabel(4325),featured) + [Control.HasFocus(6010) | Control.HasFocus(6011) | Control.HasFocus(6012)]]"):
