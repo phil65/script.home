@@ -30,7 +30,6 @@ class Downloader():
         modeselect.append(__language__(34009))
         modeselect.append(__language__(34013))
         modeselect.append(__language__(34019))
-        modeselect.append(__language__(34027))
         self.checkDir(os.path.join(ADDON_DATA_PATH))
         dialogSelection = xbmcgui.Dialog()
         self.download_mode = dialogSelection.select(__language__(34010), modeselect)
@@ -58,11 +57,6 @@ class Downloader():
             self.install_path = os.path.join(SKIN_PATH, "extras", "genre", "music", "icons")
             self.zip_path = os.path.join(ADDON_DATA_PATH, "musicgenreicons")
             download_button = __language__(34020)
-        elif self.download_mode == 4:
-            url_folder = "http://aeon-nox-background-packs.googlecode.com/svn/trunk/Scripts/"
-            self.install_path = xbmc.translatePath("special://home/addons")
-            self.zip_path = os.path.join(ADDON_DATA_PATH, "Scripts")
-            download_button = __language__(34026)
         themes = self.get_download_list(self.zip_path)
         themes.append(download_button)
         self.checkDir(self.zip_path)
@@ -155,8 +149,6 @@ class Downloader():
             zip = zipfile.ZipFile(DownloadedZip, "r")
             zip.extractall(self.install_path, filter(lambda f: not f.endswith('/'), zip.namelist()))
             zip.close()
-            if self.download_mode == 4:
-                xbmc.executebuiltin('XBMC.UpdateLocalAddons()')
             xbmcgui.Dialog().ok(__addonid__, __language__(34003))
             self.show_download_dialog()
         except:
