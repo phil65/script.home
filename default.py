@@ -293,6 +293,7 @@ if __name__ == '__main__':
             from Downloader import Downloader
             dialog = Downloader()
             dialog.show_download_dialog()
+            del dialog
     else:
         MoveProperties(container, focuscontrol)
     sys.modules.clear()
