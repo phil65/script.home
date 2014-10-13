@@ -63,7 +63,7 @@ class GUI(xbmcgui.WindowXML):
 
     def onAction(self, action):
         action_id = action.getId()
-        log(action_id)
+   #     log(action_id)
         if action_id in ACTION_SCROLL:
             if xbmc.getCondVisibility("Control.HasFocus(9000)"):
                 Main_Menu_Move()
@@ -190,7 +190,7 @@ class GUI(xbmcgui.WindowXML):
         if context_menu.selection == 0:
             playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp", False, False, playlistpath)
             builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + ".Content," + playlist + ")"
-            log(builtin)
+       #     log(builtin)
             xbmc.executebuiltin(builtin)
         elif context_menu.selection == 1:
             xbmc.executebuiltin("SetProperty(WidgetTargetPrefix,Featured" + playlisttype + str(focusedcontrol) + ",skinsettings)")
