@@ -116,7 +116,7 @@ def CreateListItem(json_array):
     item = xbmcgui.ListItem("Undefined")
     for key, value in json_array.iteritems():
         item.setProperty(key, value)
-        if key in ["thumb", "poster", "banner", "icon"]:
+        if key in ["thumb", "poster", "banner", "icon", "discart", "clearlogo", "characterart", "landscape", "tvshow.clearlogo", "tvshow.characterart", "tvshow.clearlogo"]:
             item.setArt({key: value})
         elif key == "label":
             item.setLabel(value)
