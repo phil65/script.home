@@ -271,8 +271,11 @@ if __name__ == '__main__':
             focuscontrol = param[13:]
     if window is not None:
         if window == "home":
-            gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
-            del gui
+            if xbmc.getCondVisibility("IsEmpty(Window(home).Property(homewindowactive))"):
+                xbmc.executebuiltin("SetProperty(homewindowactive,true,home)")
+                gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
+                xbmc.executebuiltin("ClearProperty(homewindowactive,home)")
+                del gui
         elif window == "colorconfig":
             from ColorConfigDialog import ColorConfigDialog
             gui = ColorConfigDialog(u'script-%s-colorconfig.xml' % addon_name, addon_path).doModal()
