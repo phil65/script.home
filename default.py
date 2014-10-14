@@ -185,17 +185,17 @@ class GUI(xbmcgui.WindowXML):
         else:
             playlistpath = 'special://videoplaylists/'
             playlisttype = "Movies"
-        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Set to Smart Playlist", "Set to Library Node", "Set to Default"])
+        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Set to Smart Playlist", "Set to Default"])
         context_menu.doModal()
         if context_menu.selection == 0:
             playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp", False, False, playlistpath)
             builtin = "Skin.SetString(Featured" + playlisttype + str(focusedcontrol) + ".Content," + playlist + ")"
        #     log(builtin)
             xbmc.executebuiltin(builtin)
+        # elif context_menu.selection == 1:
+        #     xbmc.executebuiltin("SetProperty(WidgetTargetPrefix,Featured" + playlisttype + str(focusedcontrol) + ",skinsettings)")
+        #     xbmc.executebuiltin("ActivateWindow(1133)")
         elif context_menu.selection == 1:
-            xbmc.executebuiltin("SetProperty(WidgetTargetPrefix,Featured" + playlisttype + str(focusedcontrol) + ",skinsettings)")
-            xbmc.executebuiltin("ActivateWindow(1133)")
-        elif context_menu.selection == 2:
             builtin = "Skin.Reset(Featured" + playlisttype + str(focusedcontrol) + "Content)"
             xbmc.executebuiltin(builtin)
         del context_menu
