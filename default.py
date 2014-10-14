@@ -187,8 +187,8 @@ class GUI(xbmcgui.WindowXML):
             playlisttype = "Movies"
         context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Set to Smart Playlist", "Set to Default"])
         context_menu.doModal()
+        Skin_String = "Featured" + playlisttype + str(focusedcontrol) + ".Content"
         if context_menu.selection == 0:
-            Skin_String = "Featured" + playlisttype + str(focusedcontrol) + ".Content"
             playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp", False, False, playlistpath)
             builtin = "Skin.SetString(%s,%s)" % (Skin_String, playlist)
        #     log(builtin)
