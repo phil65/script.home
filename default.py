@@ -111,14 +111,14 @@ class GUI(xbmcgui.WindowXML):
                 homewindow.setProperty("PanelWidgetInfo", "true")
                 homewindow.setProperty("WidgetPosition", "Widget1")
                 homewindow.setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4321)"))
-                if xbmc.getCondVisibility("Substring(Control.GetLabel(4321),movie) + IsEmpty(Container(5010).ListItem.DBID)"):
+                if xbmc.getCondVisibility("Substring(%s,movie) + IsEmpty(Container(5010).ListItem.DBID)" % xbmc.getInfoLabel("Control.GetLabel(4321)")):
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)")))
                 MoveProperties(5010, 5055)
             elif xbmc.getCondVisibility("Control.HasFocus(6010)"):
                 homewindow.setProperty("PanelWidgetInfo", "true")
                 homewindow.setProperty("WidgetPosition", "Widget2")
                 homewindow.setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4325)"))
-                if xbmc.getCondVisibility("Substring(Control.GetLabel(4325),movie) + IsEmpty(Container(6010).ListItem.DBID)"):
+                if xbmc.getCondVisibility("Substring(%s,movie) + IsEmpty(Container(6010).ListItem.DBID)" % xbmc.getInfoLabel("Control.GetLabel(4325)")):
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)")))
                 MoveProperties(6010, 5055)
 
