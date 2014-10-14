@@ -85,9 +85,9 @@ class GUI(xbmcgui.WindowXML):
         if action_id in ACTION_SHOW_INFO:
             if xbmc.getCondVisibility("Control.HasFocus(9000)"):
                 if xbmc.getCondVisibility("IsEmpty(Window(home).Property(DisableWidgets))"):
-                    xbmc.executebuiltin("SetProperty(DisableWidgets,1,home)")
+                    xbmcgui.Window(10000).setProperty("DisableWidgets", "1")
                 else:
-                    xbmc.executebuiltin("ClearProperty(DisableWidgets,home)")
+                    xbmcgui.Window(10000).clearProperty("DisableWidgets")
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + Control.HasFocus(5010)"):
                 xbmc.executebuiltin("Control.Move(5001,1)")
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + Control.HasFocus(5011)"):
@@ -101,10 +101,10 @@ class GUI(xbmcgui.WindowXML):
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6012)"):
                 xbmc.executebuiltin("Control.Move(6003,1)")
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),image) + Control.HasFocus(5010)"):
-                xbmc.executebuiltin("SetProperty(WidgetPosition,Widget1,home)")
+                xbmcgui.Window(10000).setProperty("WidgetPosition", "Widget1")
                 xbmc.executebuiltin("SetFocus(22222)")
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),image) + Control.HasFocus(6010)"):
-                xbmc.executebuiltin("SetProperty(WidgetPosition,Widget2,home)")
+                xbmcgui.Window(10000).setProperty("WidgetPosition", "Widget2")
                 xbmc.executebuiltin("SetFocus(22222)")
             elif xbmc.getCondVisibility("Control.HasFocus(5010)"):
                 xbmcgui.Window(10000).setProperty("PanelWidgetInfo", "true")
@@ -128,8 +128,7 @@ class GUI(xbmcgui.WindowXML):
                 self.HomeContextMenu()
             elif xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),Icon) + Control.HasFocus(5010)] | [Substring(Control.GetLabel(4325),Icon) + Control.HasFocus(6010)]"):
                 itemid = xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)")
-                builtin = "SetProperty(MenuItem," + itemid + ",home)"
-                xbmc.executebuiltin(builtin)
+                xbmcgui.Window(10000).setProperty("MenuItem", itemid)
                 for item in ["Type", "MultiFanart", "Label", "Path", "Icon"]:
                     builtin = "Skin.SetString(ItemToEdit." + item + "," + xbmc.getInfoLabel("Skin.String(" + itemid + "." + item + ")") + ")"
                     xbmc.executebuiltin(builtin)
@@ -272,9 +271,9 @@ if __name__ == '__main__':
     if window is not None:
         if window == "home":
             if xbmc.getCondVisibility("IsEmpty(Window(home).Property(homewindowactive))"):
-                xbmc.executebuiltin("SetProperty(homewindowactive,true,home)")
+                xbmcgui.Window(10000).setProperty("homewindowactive", "true")
                 gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
-                xbmc.executebuiltin("ClearProperty(homewindowactive,home)")
+                xbmcgui.Window(10000).clearProperty("homewindowactive")
                 del gui
         elif window == "colorconfig":
             from ColorConfigDialog import ColorConfigDialog
