@@ -30,6 +30,7 @@ __addonpath__ = __addon__.getAddonInfo('path')
 addon = xbmcaddon.Addon()
 addon_path = addon.getAddonInfo('path')
 addon_name = addon.getAddonInfo('name')
+skindir = xbmc.getSkinDir()
 
 CONTROL_SEARCH = 101
 ACTION_CONTEXT_MENU = [117]
@@ -58,6 +59,8 @@ class GUI(xbmcgui.WindowXML):
 
     def onInit(self, startGUI=True):
         log('onInit')
+        if xbmc.getSkinDir() != skindir:
+            self.close()
 
     def getControls(self):
         pass
