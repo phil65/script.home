@@ -68,7 +68,7 @@ def Get_Media_Details(media_type, dbid):
             if jsonobject_season['result'].has_key('seasons'):
                 seasons = jsonobject_season['result']['seasons']
                 for season in seasons:
-                    seasons_list.append(season.get('season')) 
+                    seasons_list.append(season.get('season'))
             Medialist.append({'id': item.get('imdbnumber',''),
                               'dbid': item.get('tvshowid',''),
                               'name': item.get('label',''),
