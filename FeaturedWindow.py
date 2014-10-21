@@ -39,6 +39,7 @@ ACTION_RIGHT = [2]
 ACTION_0 = [58, 18]
 ACTION_PLAY = [79]
 ACTION_SELECT_ITEM = [7]
+homewindow = xbmcgui.Window(10000)
 
 
 class FeaturedWindow(xbmcgui.WindowXML):
@@ -47,7 +48,7 @@ class FeaturedWindow(xbmcgui.WindowXML):
         log('__init__')
 
     def onInit(self, startGUI=True):
-        xbmc.sleep(100)
+        pass
 
     def getControls(self):
         pass
@@ -75,6 +76,21 @@ class FeaturedWindow(xbmcgui.WindowXML):
                 xbmc.executebuiltin("Control.Move(8002,1)")
             elif xbmc.getCondVisibility("Control.HasFocus(9010)"):
                 xbmc.executebuiltin("Control.Move(9002,1)")
+            elif xbmc.getCondVisibility("Control.HasFocus(7003)"):
+                homewindow.setProperty("PanelWidgetInfo", "true")
+                homewindow.setProperty("WidgetPosition", "Widget1")
+                homewindow.setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4321)"))
+                MoveProperties(7003, 5055)
+            elif xbmc.getCondVisibility("Control.HasFocus(8003)"):
+                homewindow.setProperty("PanelWidgetInfo", "true")
+                homewindow.setProperty("WidgetPosition", "Widget1")
+                homewindow.setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4321)"))
+                MoveProperties(8003, 5055)
+            elif xbmc.getCondVisibility("Control.HasFocus(9003)"):
+                homewindow.setProperty("PanelWidgetInfo", "true")
+                homewindow.setProperty("WidgetPosition", "Widget1")
+                homewindow.setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4321)"))
+                MoveProperties(9003, 5055)
 
     def onClick(self, controlId):
         if controlId == 18:
