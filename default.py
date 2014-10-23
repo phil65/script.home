@@ -67,13 +67,13 @@ class GUI(xbmcgui.WindowXML):
 
     def onAction(self, action):
         action_id = action.getId()
-   #     log(action_id)
+   #     Notify(action_id)
         if action_id in ACTION_SCROLL:
             if xbmc.getCondVisibility("Control.HasFocus(9000)"):
                 Main_Menu_Move()
         elif action_id in ACTION_DOWN:
             if xbmc.getCondVisibility("Control.HasFocus(9010)"):
-                numitems = xbmc.getInfoLabel("Container(9010).NumItems")
+            #    numitems = xbmc.getInfoLabel("Container(9010).NumItems")
                 offsetleft = False
                 offsetright = False
                 for i in range(1, 10):
@@ -83,8 +83,7 @@ class GUI(xbmcgui.WindowXML):
                         offsetleft = i
                     if (temp_offsetright == "") and (offsetright is False):
                         offsetright = i
-                diff = offsetleft - offsetright
-                steps = int(diff / 2)
+                steps = (offsetleft - offsetright) / 2
                 xbmc.executebuiltin("Control.Move(9010, %i)" % steps)
         if action_id in ACTION_SHOW_INFO:
             if xbmc.getCondVisibility("Control.HasFocus(9000)"):
@@ -113,18 +112,19 @@ class GUI(xbmcgui.WindowXML):
             elif xbmc.getCondVisibility("Control.HasFocus(5010)"):
                 homewindow.setProperty("PanelWidgetInfo", "true")
                 homewindow.setProperty("WidgetPosition", "Widget1")
-                homewindow.setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4321)"))
-                if xbmc.getCondVisibility("IsEmpty(Container(5010).ListItem.DBID) + !IsEmpty(Container(5010).ListItem.Property(Trailer))"):
+                widgettype = xbmc.getInfoLabel("Control.GetLabel(4321)")
+                homewindow.setProperty("WidgetType", widgettype)
+                if xbmc.getCondVisibility("IsEmpty(Container(5010).ListItem.DBID)") and "movie" in widgettype:
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)")))
                 MoveProperties(5010, 5055)
             elif xbmc.getCondVisibility("Control.HasFocus(6010)"):
                 homewindow.setProperty("PanelWidgetInfo", "true")
                 homewindow.setProperty("WidgetPosition", "Widget2")
-                homewindow.setProperty("WidgetType", xbmc.getInfoLabel("Control.GetLabel(4325)"))
-                if xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID) + !IsEmpty(Container(6010).ListItem.Property(Trailer))"):
+                widgettype = xbmc.getInfoLabel("Control.GetLabel(4325)")
+                homewindow.setProperty("WidgetType", widgettype)
+                if xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID") and "movie" in widgettype:
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)")))
                 MoveProperties(6010, 5055)
-
         elif action_id in ACTION_CONTEXT_MENU:
             if xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]] | [Substring(Control.GetLabel(4325),featured) + [Control.HasFocus(6010) | Control.HasFocus(6011) | Control.HasFocus(6012)]]"):
                 self.FeaturedContextMenu()
