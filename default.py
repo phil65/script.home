@@ -116,6 +116,8 @@ class GUI(xbmcgui.WindowXML):
                 homewindow.setProperty("WidgetType", widgettype)
                 if xbmc.getCondVisibility("IsEmpty(Container(5010).ListItem.DBID)") and "movie" in widgettype:
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)")))
+                elif xbmc.getCondVisibility("IsEmpty(Container(5010).ListItem.DBID)") and "tv" in widgettype:
+                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)")))
                 MoveProperties(5010, 5055)
             elif xbmc.getCondVisibility("Control.HasFocus(6010)"):
                 homewindow.setProperty("PanelWidgetInfo", "true")
@@ -123,7 +125,11 @@ class GUI(xbmcgui.WindowXML):
                 widgettype = xbmc.getInfoLabel("Control.GetLabel(4325)")
                 homewindow.setProperty("WidgetType", widgettype)
                 if xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID") and "movie" in widgettype:
+                  #  Notify("tvinfo")
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)")))
+                elif xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID") and "tv" in widgettype:
+                   # Notify("tvinfo")
+                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)")))
                 MoveProperties(6010, 5055)
         elif action_id in ACTION_CONTEXT_MENU:
             if xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]] | [Substring(Control.GetLabel(4325),featured) + [Control.HasFocus(6010) | Control.HasFocus(6011) | Control.HasFocus(6012)]]"):
@@ -156,20 +162,22 @@ class GUI(xbmcgui.WindowXML):
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Disable," + xbmc.getInfoLabel("Container(9000).ListItem.Property(DisableIcon)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Type)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Path," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Path)") + ")")
-        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Color Settings", "Furniture Settings", "Hide / Unhide All Items", "NowPlaying Widget Options"])
+        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Exchange Position", "Hide / Unhide All Items", "Color Settings", "Furniture Settings", "NowPlaying Widget Options"])
         context_menu.doModal()
         if context_menu.selection == 0:
             xbmc.executebuiltin("ActivateWindow(1122)")
         elif context_menu.selection == 1:
-            xbmc.executebuiltin("ActivateWindow(1128)")
+            xbmc.executebuiltin("ActivateWindow(1151)")
         elif context_menu.selection == 2:
-            xbmc.executebuiltin("ActivateWindow(1131)")
-        elif context_menu.selection == 3:
             if xbmc.getCondVisibility("IsEmpty(Window(home).Property(EditMode))"):
                 xbmc.executebuiltin("SetProperty(EditMode,True,home)")
             else:
                 xbmc.executebuiltin("ClearProperty(EditMode,home)")
+        elif context_menu.selection == 3:
+            xbmc.executebuiltin("ActivateWindow(1128)")
         elif context_menu.selection == 4:
+            xbmc.executebuiltin("ActivateWindow(1131)")
+        elif context_menu.selection == 5:
             xbmc.executebuiltin("ActivateWindow(1158)")
 
     def FeaturedContextMenu(self):
