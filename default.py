@@ -109,6 +109,10 @@ class GUI(xbmcgui.WindowXML):
             elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),image) + Control.HasFocus(6010)"):
                 homewindow.setProperty("WidgetPosition", "Widget2")
                 xbmc.executebuiltin("SetFocus(22222)")
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),concert) + Control.HasFocus(5010)"):
+                xbmc.executebuiltin("RunScript(script.maps.browser,eventid=%s)" % xbmc.getInfoLabel("Container(5010).ListItem.Property(event_id)"))
+            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),concert) + Control.HasFocus(6010)"):
+                xbmc.executebuiltin("RunScript(script.maps.browser,eventid=%s)" % xbmc.getInfoLabel("Container(6010).ListItem.Property(event_id)"))
             elif xbmc.getCondVisibility("Control.HasFocus(5010)"):
                 homewindow.setProperty("PanelWidgetInfo", "true")
                 homewindow.setProperty("WidgetPosition", "Widget1")
