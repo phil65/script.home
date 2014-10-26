@@ -1,0 +1,123 @@
+# XBMC Media Center language file
+# Addon Name: HomeWindow Script
+# Addon id: script.home
+# Addon version: 0.0.1
+# Addon Provider: phil65
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2014-10-26 17:11+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "Addon Summary"
+msgid "HomeWindow Script"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "THomeWindow Script"
+msgstr ""
+
+
+msgctxt "#34001"
+msgid "Download more background packs"
+msgstr ""
+
+msgctxt "#34002"
+msgid "List of locally installed zip files"
+msgstr ""
+
+msgctxt "#34003"
+msgid "Zip extracted successfully"
+msgstr ""
+
+msgctxt "#34004"
+msgid "Error when installing zip"
+msgstr ""
+
+msgctxt "#34005"
+msgid "Downloading background pack..."
+msgstr ""
+
+msgctxt "#34006"
+msgid "Choose zip to download"
+msgstr ""
+
+msgctxt "#34007"
+msgid "No remote zips found"
+msgstr ""
+
+msgctxt "#34008"
+msgid "Background Packs"
+msgstr ""
+
+msgctxt "#34009"
+msgid "Themes"
+msgstr ""
+
+msgctxt "#34010"
+msgid "What do you want to download?"
+msgstr ""
+
+msgctxt "#34011"
+msgid "Download more zips"
+msgstr ""
+
+msgctxt "#34012"
+msgid "Download Video Genre Icons"
+msgstr ""
+
+msgctxt "#34013"
+msgid "Video Genre Icons"
+msgstr ""
+
+#empty string with id 34014
+
+msgctxt "#34015"
+msgid "Video Genre Fanart"
+msgstr ""
+
+msgctxt "#34016"
+msgid "Conditional Weather Fanart"
+msgstr ""
+
+msgctxt "#34017"
+msgid "Download Conditional Weather Fanart"
+msgstr ""
+
+#empty string with id 34018
+
+msgctxt "#34019"
+msgid "Music Genre Icons"
+msgstr ""
+
+msgctxt "#34020"
+msgid "Download Music Genre Icons"
+msgstr ""
+
+#empty string with id 34021
+
+msgctxt "#34022"
+msgid "Year Icons"
+msgstr ""
+
+msgctxt "#34023"
+msgid "Year Fanart"
+msgstr ""
+
+#empty strings from id 34024 to 34025
+
+msgctxt "#34026"
+msgid "Download Scripts"
+msgstr ""
+
+msgctxt "#34027"
+msgid "Scripts"
+msgstr ""
