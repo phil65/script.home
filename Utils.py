@@ -140,6 +140,14 @@ def Main_Menu_Move():
         xbmcgui.Window(10000).clearProperty("scrolling")
 
 
+def create_light_movielist():
+    json_query = xbmc.executeJSONRPC(
+        '{"jsonrpc": "2.0", "method": "VideoLibrary.GetMovies", "params": {"properties": ["file"], "sort": { "method": "random" } }, "id": 1}')
+    json_query = unicode(json_query, 'utf-8', errors='ignore')
+    json_query = simplejson.loads(json_query)
+    return json_query
+
+
 def GetStringFromUrl(encurl):
     succeed = 0
     while succeed < 5:
