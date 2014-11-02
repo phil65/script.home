@@ -67,12 +67,14 @@ class GUI(xbmcgui.WindowXML):
 
     def onAction(self, action):
         action_id = action.getId()
-   #     Notify(action_id)
+        focusid = self.getFocusId()
+        label4321 = xbmc.getInfoLabel("Control.GetLabel(4321)")
+        label4325 = xbmc.getInfoLabel("Control.GetLabel(4325)")
         if action_id in ACTION_SCROLL:
-            if xbmc.getCondVisibility("Control.HasFocus(9000)"):
+            if focusid == 9000:
                 Main_Menu_Move()
         elif action_id in ACTION_DOWN:
-            if xbmc.getCondVisibility("Control.HasFocus(9010)"):
+            if focusid == 9010:
             #    numitems = xbmc.getInfoLabel("Container(9010).NumItems")
                 offsetleft = False
                 offsetright = False
@@ -86,34 +88,34 @@ class GUI(xbmcgui.WindowXML):
                 steps = (offsetleft - offsetright) / 2
                 xbmc.executebuiltin("Control.Move(9010, %i)" % steps)
         if action_id in ACTION_SHOW_INFO:
-            if xbmc.getCondVisibility("Control.HasFocus(9000)"):
+            if focusid == 9000:
                 if xbmc.getCondVisibility("IsEmpty(Window(home).Property(DisableWidgets))"):
                     homewindow.setProperty("DisableWidgets", "1")
                 else:
                     homewindow.clearProperty("DisableWidgets")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + Control.HasFocus(5010)"):
+            elif ("featured" in label4321) and (focusid == 5010):
                 xbmc.executebuiltin("Control.Move(5001,1)")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + Control.HasFocus(5011)"):
+            elif ("featured" in label4321) and (focusid == 5011):
                 xbmc.executebuiltin("Control.Move(5002,1)")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),featured) + Control.HasFocus(5012)"):
+            elif ("featured" in label4321) and (focusid == 5012):
                 xbmc.executebuiltin("Control.Move(5003,1)")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6010)"):
+            elif ("featured" in label4325) and (focusid == 6010):
                 xbmc.executebuiltin("Control.Move(6001,1)")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6011)"):
+            elif ("featured" in label4325) and (focusid == 6011):
                 xbmc.executebuiltin("Control.Move(6002,1)")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),featured) + Control.HasFocus(6012)"):
+            elif ("featured" in label4325) and (focusid == 6012):
                 xbmc.executebuiltin("Control.Move(6003,1)")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),image) + Control.HasFocus(5010)"):
+            elif ("image" in label4321) and (focusid == 5010):
                 homewindow.setProperty("WidgetPosition", "Widget1")
                 xbmc.executebuiltin("SetFocus(22222)")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),image) + Control.HasFocus(6010)"):
+            elif ("image" in label4325) and (focusid == 6010):
                 homewindow.setProperty("WidgetPosition", "Widget2")
                 xbmc.executebuiltin("SetFocus(22222)")
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4321),concert) + Control.HasFocus(5010)"):
+            elif ("concert" in label4321) and (focusid == 5010):
                 xbmc.executebuiltin("RunScript(script.maps.browser,eventid=%s)" % xbmc.getInfoLabel("Container(5010).ListItem.Property(event_id)"))
-            elif xbmc.getCondVisibility("Substring(Control.GetLabel(4325),concert) + Control.HasFocus(6010)"):
+            elif ("concert" in label4325) and (focusid == 6010):
                 xbmc.executebuiltin("RunScript(script.maps.browser,eventid=%s)" % xbmc.getInfoLabel("Container(6010).ListItem.Property(event_id)"))
-            elif xbmc.getCondVisibility("Control.HasFocus(5010)"):
+            elif focusid == 5010:
                 homewindow.setProperty("PanelWidgetInfo", "true")
                 homewindow.setProperty("WidgetPosition", "Widget1")
                 widgettype = xbmc.getInfoLabel("Control.GetLabel(4321)")
@@ -123,24 +125,22 @@ class GUI(xbmcgui.WindowXML):
                 elif xbmc.getCondVisibility("IsEmpty(Container(5010).ListItem.DBID)") and "tv" in widgettype:
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)")))
                 MoveProperties(5010, 5055)
-            elif xbmc.getCondVisibility("Control.HasFocus(6010)"):
+            elif focusid == 6010:
                 homewindow.setProperty("PanelWidgetInfo", "true")
                 homewindow.setProperty("WidgetPosition", "Widget2")
                 widgettype = xbmc.getInfoLabel("Control.GetLabel(4325)")
                 homewindow.setProperty("WidgetType", widgettype)
                 if xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID") and "movie" in widgettype:
-                  #  Notify("tvinfo")
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)")))
                 elif xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID") and "tv" in widgettype:
-                   # Notify("tvinfo")
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)")))
                 MoveProperties(6010, 5055)
         elif action_id in ACTION_CONTEXT_MENU:
-            if xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),featured) + [Control.HasFocus(5010) | Control.HasFocus(5011) | Control.HasFocus(5012)]] | [Substring(Control.GetLabel(4325),featured) + [Control.HasFocus(6010) | Control.HasFocus(6011) | Control.HasFocus(6012)]]"):
+            if (("featured" in label4321.lower()) and (focusid in [5010, 5011, 5012])) or (("featured" in label4325) and (focusid in [6010, 6011, 6012])):
                 self.FeaturedContextMenu()
-            elif xbmc.getCondVisibility("Control.HasFocus(9000)"):
+            elif focusid == 9000:
                 self.HomeContextMenu()
-            elif xbmc.getCondVisibility("[Substring(Control.GetLabel(4321),Icon) + Control.HasFocus(5010)] | [Substring(Control.GetLabel(4325),Icon) + Control.HasFocus(6010)]"):
+            elif (("icon" in label4321.lower()) and (focusid == 5010)) or (("icon" in label4325.lower()) and (focusid == 6010)):
                 itemid = xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)")
                 homewindow.setProperty("MenuItem", itemid)
                 for item in ["Type", "MultiFanart", "Label", "Path", "Icon"]:
@@ -300,6 +300,10 @@ if __name__ == '__main__':
         elif window == "trailers":
             from TrailerWindow import TrailerWindow
             gui = TrailerWindow(u'script-%s-trailers.xml' % addon_name, addon_path).doModal()
+            del gui
+        elif window == "favourites":
+            from FavWindow import FavWindow
+            gui = FavWindow(u'script-globalsearch-main.xml', addon_path).doModal()
             del gui
         elif window == "featured":
             from FeaturedWindow import FeaturedWindow

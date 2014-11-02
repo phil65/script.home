@@ -30,7 +30,7 @@ def MoveProperties(container_number, focuscontrol):
                   "mpaa", "Genre", "Premiered", "Duration", "Folder", "Episode", "DBID", "PlotOutline", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
     Properties = ["Album_Type", "Type", "imdbid", "Album_Genre", "Artist_Genre", "Id", "Description", "Artist_Description", "Album_Description", "Album_Label",
                   "DBID", "Artist_Mood", "Album_Mood", "Album_Style", "Artist_Style", "Album_Theme", "Artist_Instrument", "Artist_Born",
-                  "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive"]
+                  "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive", "Addon.Description", "Addon.Summary", "Addon.Version", "Addon.Creator"]
     Art = ["fanart", "tvshow.fanart", "poster", "tvshow.poster", "clearlogo", "tvshow.clearlogo", "clearart", "tvshow.clearart", "landscape", "tvshow.landscape",
            "banner", "characterart", "tvshow.banner", "tvshow.characterart", "discart"]
     for prop in InfoLabels:
@@ -160,6 +160,42 @@ def GetStringFromUrl(encurl):
             xbmc.sleep(1000)
             succeed += 1
     return ""
+
+
+def CreateListItems(data):
+    InfoLabels = ["genre", "year", "episode", "season", "top250", "tracknumber", "year", "plot", "tagline", "originaltitle", "tvshowtitle",
+                  "director", "rating", "studio", "starrating", "country", "percentplayed", "audiochannels", "audiocodec", "videocodec", "videoaspect",
+                  "mpaa", "genre", "premiered", "duration", "folder", "episode", "dbid", "plotoutline", "trailer", "top250", "writer", "watched", "videoresolution"]    # log(str(xbmcgui.getCurrentWindowId()))
+    # log(str(xbmcgui.getCurrentWindowDialogId()))
+    # log(str(controlwindow))
+    itemlist = []
+    if data is not None:
+        for (count, result) in enumerate(data):
+            listitem = xbmcgui.ListItem('%s' % (str(count)))
+            itempath = ""
+            for (key, value) in result.iteritems():
+           #     log("key: " + unicode(key) + "  value: " + unicode(value))
+                if str(key).lower() in ["name", "label", "title"]:
+                    listitem.setLabel(unicode(value))
+                if str(key).lower() in ["thumb"]:
+                    listitem.setThumbnailImage(unicode(value))
+                if str(key).lower() in ["icon"]:
+                    listitem.setIconImage(unicode(value))
+                if str(key).lower() in ["thumb", "poster", "banner", "fanart", "clearart", "clearlogo", "landscape", "discart", "characterart", "tvshow.fanart", "tvshow.poster", "tvshow.banner", "tvshow.clearart", "tvshow.characterart"]:
+                    listitem.setArt({str(key).lower(): unicode(value)})
+                if str(key).lower() in ["path"]:
+                    itempath = unicode(value)
+                # if str(key).lower() in InfoLabels:
+                #     listitem.setInfo('video', {str(key).lower(): unicode(value)})
+       #             Notify(value)
+                listitem.setProperty('%s' % (str(key)), unicode(value))
+           # itempath = "SetFocus(" + str((controlnumber + 1)) + ")"
+            listitem.setPath(path=itempath)
+            listitem.setProperty("target_url", itempath)
+            listitem.setProperty("node:target_url", itempath)
+            listitem.setProperty("node.target_url", itempath)
+            itemlist.append(listitem)
+    return itemlist
 
 
 def Get_JSON_response(base_url="", custom_url="", cache_days=0.5):
