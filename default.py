@@ -166,7 +166,7 @@ class GUI(xbmcgui.WindowXML):
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Disable," + xbmc.getInfoLabel("Container(9000).ListItem.Property(DisableIcon)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Type)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Path," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Path)") + ")")
-        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Exchange Position", "Hide / Unhide All Items", "Color Settings", "Furniture Settings", "NowPlaying Widget Options"])
+        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Exchange Position", "Hide / Unhide All Items", "Color Settings", "Furniture Settings"])
         context_menu.doModal()
         if context_menu.selection == 0:
             xbmc.executebuiltin("ActivateWindow(1122)")
@@ -181,8 +181,6 @@ class GUI(xbmcgui.WindowXML):
             xbmc.executebuiltin("ActivateWindow(1128)")
         elif context_menu.selection == 4:
             xbmc.executebuiltin("ActivateWindow(1131)")
-        elif context_menu.selection == 5:
-            xbmc.executebuiltin("ActivateWindow(1158)")
 
     def FeaturedContextMenu(self):
         focusedcontrol = self.getFocusId()
