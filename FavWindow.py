@@ -49,13 +49,14 @@ class FavWindow(xbmcgui.WindowXML):
         log('__init__')
 
     def onInit(self, startGUI=True):
-        self.media = self.GetFavouriteswithType("media")
+        self.favitems = self.GetFavouriteswithType("media")
         db_movielist = create_light_movielist()
+        favmovies = []
         for db_movie in db_movielist["result"]["movies"]:
-            for fav in self.media:
+            for fav in self.favitems:
                 if db_movie["file"] in fav["Builtin"]:
-                    prettyprint(db_movie)
-        listitems = CreateListItems(self.media)
+                    favmovies.append(db_movie)
+        listitems = CreateListItems(favmovies)
         self.getControl(110).setLabel("Movies")
         self.getControl(111).addItems(listitems)
      #   self.setFocus(110)

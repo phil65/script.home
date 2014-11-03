@@ -142,7 +142,7 @@ def Main_Menu_Move():
 
 def create_light_movielist():
     json_query = xbmc.executeJSONRPC(
-        '{"jsonrpc": "2.0", "method": "VideoLibrary.GetMovies", "params": {"properties": ["file"], "sort": { "method": "random" } }, "id": 1}')
+        '{"jsonrpc": "2.0", "method": "VideoLibrary.GetMovies", "params": {"properties": ["file", "genre", "thumbnail", "art"], "sort": { "method": "random" } }, "id": 1}')
     json_query = unicode(json_query, 'utf-8', errors='ignore')
     json_query = simplejson.loads(json_query)
     return json_query

@@ -313,6 +313,10 @@ if __name__ == '__main__':
             from DialogAlbumInfo import DialogAlbumInfo
             gui = DialogAlbumInfo(u'script-%s-dialogalbuminfo.xml' % addon_name, addon_path).doModal()
             del gui
+        elif window == "fullscreeninfo":
+            from FullscreenInfo import FullscreenInfo
+            gui = FullscreenInfo(u'script-%s-fullscreeninfo.xml' % addon_name, addon_path).doModal()
+            del gui
         elif window == "downloader":
             from Downloader import Downloader
             dialog = Downloader()
