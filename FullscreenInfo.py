@@ -48,16 +48,16 @@ class FullscreenInfo(xbmcgui.WindowXMLDialog):
         log('__init__')
 
     def onInit(self, startGUI=True):
-        pass
+        xbmc.executebuiltin("Dialog.Close(fullscreeninfo)")
 
     def getControls(self):
         pass
 
     def onAction(self, action):
         action_id = action.getId()
-        if action_id in [ACTION_PREVIOUS_MENU, ACTION_SHOW_INFO]:
-            xbmc.executebuiltin("Dialog.Close(fullscreeninfo)")
-            self.close()
+        # if action_id in [ACTION_PREVIOUS_MENU]:
+        xbmc.executebuiltin("Dialog.Close(fullscreeninfo)")
+        self.close()
 
     def onClick(self, controlId):
         pass
