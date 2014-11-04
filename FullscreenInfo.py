@@ -55,9 +55,9 @@ class FullscreenInfo(xbmcgui.WindowXMLDialog):
 
     def onAction(self, action):
         action_id = action.getId()
-        # if action_id in [ACTION_PREVIOUS_MENU]:
-        xbmc.executebuiltin("Dialog.Close(fullscreeninfo)")
-        self.close()
+        if action_id in ACTION_PREVIOUS_MENU or action_id in ACTION_SHOW_INFO:
+            xbmc.executebuiltin("Dialog.Close(fullscreeninfo)")
+            self.close()
 
     def onClick(self, controlId):
         pass
