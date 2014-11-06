@@ -324,4 +324,3 @@ if __name__ == '__main__':
             del dialog
     else:
         MoveProperties(container, focuscontrol)
-    sys.modules.clear()
