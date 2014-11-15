@@ -26,7 +26,7 @@ def MoveProperties(container_number, focuscontrol):
     if focuscontrol == "focused":
         focuscontrol = focusedcontrol
     InfoLabels = ["Label", "Label2", "icon", "thumb", "Path", "Season", "Year", "Plot", "Tagline", "OriginalTitle", "TVShowTitle",
-                  "Director", "Rating", "Studio", "StarRating", "Country", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
+                  "Director", "Rating", "Votes", "Studio", "StarRating", "Country", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
                   "mpaa", "Genre", "Premiered", "Duration", "Folder", "Episode", "DBID", "PlotOutline", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
     Properties = ["Album_Type", "Type", "imdbid", "Album_Genre", "Artist_Genre", "Id", "Description", "Artist_Description", "Album_Description", "Album_Label",
                   "DBID", "Artist_Mood", "Album_Mood", "Album_Style", "Artist_Style", "Album_Theme", "Artist_Instrument", "Artist_Born",
