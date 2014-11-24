@@ -118,23 +118,29 @@ class GUI(xbmcgui.WindowXML):
             elif ("concert" in label4325) and (focusid == 6010):
                 xbmc.executebuiltin("RunScript(script.maps.browser,eventid=%s)" % xbmc.getInfoLabel("Container(6010).ListItem.Property(event_id)"))
             elif focusid == 5010:
-                homewindow.setProperty("PanelWidgetInfo", "true")
                 homewindow.setProperty("WidgetPosition", "Widget1")
                 homewindow.setProperty("WidgetType", label4321)
-                if xbmc.getCondVisibility("IsEmpty(Container(5010).ListItem.DBID)") and "movie" in label4321:
+                if "movie" in label4321 and xbmc.getCondVisibility("IsEmpty(Container(5010).ListItem.DBID"):
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)")))
-                elif xbmc.getCondVisibility("IsEmpty(Container(5010).ListItem.DBID)") and "tv" in label4321:
+                elif "tv" in label4321:
+                    homewindow.setProperty("PanelWidgetInfo", "true")
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)")))
-                MoveProperties(5010, 5055)
+                    MoveProperties(5010, 5055)
+                else:
+                    homewindow.setProperty("PanelWidgetInfo", "true")
+                    MoveProperties(5010, 5055)
             elif focusid == 6010:
-                homewindow.setProperty("PanelWidgetInfo", "true")
-                homewindow.setProperty("WidgetPosition", "Widget2")
                 homewindow.setProperty("WidgetType", label4325)
-                if xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID") and "movie" in label4325:
+                homewindow.setProperty("WidgetPosition", "Widget2")
+                if  "movie" in label4325 and xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID"):
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)")))
-                elif xbmc.getCondVisibility("IsEmpty(Container(6010).ListItem.DBID") and "tv" in label4325:
+                elif "tv" in label4325:
+                    homewindow.setProperty("PanelWidgetInfo", "true")
                     xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)")))
-                MoveProperties(6010, 5055)
+                    MoveProperties(6010, 5055)
+                else:
+                    homewindow.setProperty("PanelWidgetInfo", "true")
+                    MoveProperties(6010, 5055)
         elif action_id in ACTION_CONTEXT_MENU:
             if (("featured" in label4321.lower()) and (focusid in [5010, 5011, 5012])) or (("featured" in label4325) and (focusid in [6010, 6011, 6012])):
                 self.FeaturedContextMenu()
