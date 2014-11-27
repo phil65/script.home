@@ -48,24 +48,18 @@ class TrailerWindow(xbmcgui.WindowXML):
         log('__init__')
 
     def onInit(self, startGUI=True):
-        xbmc.sleep(100)
-
-    def getControls(self):
         pass
 
     def onAction(self, action):
         action_id = action.getId()
-        focusedcontrol = self.getFocusId()
         if action_id in ACTION_PREVIOUS_MENU:
             self.close()
         elif action_id in ACTION_SHOW_INFO:
+            focusedcontrol = self.getFocusId()
             MoveProperties(focusedcontrol, focusedcontrol)
-            xbmc.executebuiltin("SetProperty(PanelWidgetInfo,true,home))")
-            xbmc.executebuiltin("SetProperty(WidgetPosition,Widget1,home)")
-            xbmc.executebuiltin("SetProperty(WidgetType,movies,home)")
-            builtin = "RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (xbmc.getInfoLabel("Window(home).Property(ID)"), xbmc.getInfoLabel("Window(home).Property(imdbid)"))
+            movieid = xbmc.getInfoLabel("Container(%i).ListItem.Property(ID)" % focusedcontrol)
+            builtin = "RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (movieid, xbmc.getInfoLabel("Window(home).Property(imdbid)"))
             xbmc.executebuiltin(builtin)
-            xbmc.executebuiltin("ActivateWindow(1165)")
         # elif action_id in ACTION_LEFT:
         #     for controlnumber in LISTS:
         #         if controlnumber != focusedcontrol:
