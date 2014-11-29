@@ -121,10 +121,10 @@ class GUI(xbmcgui.WindowXML):
                 homewindow.setProperty("WidgetPosition", "Widget1")
                 homewindow.setProperty("WidgetType", label4321)
                 if "movie" in label4321:
-                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(dbid)")))
+                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)"), xbmc.getInfoLabel("Container(5010).ListItem.DBID")))
                 elif "tv" in label4321:
                     homewindow.setProperty("PanelWidgetInfo", "true")
-                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(dbid)")))
+                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdbid)"), xbmc.getInfoLabel("Container(5010).ListItem.DBID")))
                     MoveProperties(5010, 5055)
                 else:
                     homewindow.setProperty("PanelWidgetInfo", "true")
@@ -133,10 +133,10 @@ class GUI(xbmcgui.WindowXML):
                 homewindow.setProperty("WidgetType", label4325)
                 homewindow.setProperty("WidgetPosition", "Widget2")
                 if  "movie" in label4325:
-                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(dbid)")))
+                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)"), xbmc.getInfoLabel("Container(6010).ListItem.DBID")))
                 elif "tv" in label4325:
                     homewindow.setProperty("PanelWidgetInfo", "true")
-                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(dbid)")))
+                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdbid=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdbid)"), xbmc.getInfoLabel("Container(6010).ListItem.DBID")))
                     MoveProperties(6010, 5055)
                 else:
                     homewindow.setProperty("PanelWidgetInfo", "true")
