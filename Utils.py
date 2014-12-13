@@ -26,14 +26,14 @@ def MoveProperties(container_number, focuscontrol):
         container_number = focusedcontrol
     if focuscontrol == "focused":
         focuscontrol = focusedcontrol
-    InfoLabels = ["Label", "Label2", "icon", "thumb", "Path", "Season", "Year", "Plot", "Tagline", "OriginalTitle", "TVShowTitle",
+    InfoLabels = ["Label", "Label2", "icon", "thumb", "Path", "Season", "Year", "Plot", "OriginalTitle", "TVShowTitle",
                   "Director", "Rating", "Votes", "Studio", "StarRating", "Country", "PercentPlayed", "AudioChannels", "AudioCodec", "VideoCodec", "VideoAspect",
-                  "mpaa", "Genre", "Premiered", "Duration", "Folder", "Episode", "DBID", "PlotOutline", "Trailer", "Top250", "Writer", "Watched", "VideoResolution"]
+                  "mpaa", "Genre", "Premiered", "Duration", "Folder", "Episode", "DBID", "Writer", "Watched", "VideoResolution"]
     Properties = ["Album_Type", "Type", "imdbid", "Album_Genre", "Artist_Genre", "Id", "Description", "Artist_Description", "Album_Description", "Album_Label",
                   "DBID", "Artist_Mood", "Album_Mood", "Album_Style", "Artist_Style", "Album_Theme", "Artist_Instrument", "Artist_Born",
                   "Artist_Died", "Artist_Formed", "Artist_Disbanded", "Artist_YearsActive", "Addon.Description", "Addon.Summary", "Addon.Version", "Addon.Creator"]
     Art = ["fanart", "tvshow.fanart", "poster", "tvshow.poster", "clearlogo", "tvshow.clearlogo", "clearart", "tvshow.clearart", "landscape", "tvshow.landscape",
-           "banner", "characterart", "tvshow.banner", "tvshow.characterart", "discart"]
+           "banner", "characterart", "tvshow.banner", "tvshow.characterart"]
     for prop in InfoLabels:
         InfoLabel = xbmc.getInfoLabel("Container(%s).ListItem.%s" % (str(container_number), prop))
         xbmcgui.Window(10000).setProperty(prop, InfoLabel.strip())
