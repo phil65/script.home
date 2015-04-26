@@ -296,7 +296,6 @@ if __name__ == '__main__':
             focuscontrol = param[13:]
     if window is not None:
         if window == "home":
-   #         if xbmc.getCondVisibility("IsEmpty(Window(home).Property(homewindowactive))"):
             homewindow.setProperty("homewindowactive", "true")
             gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
             homewindow.clearProperty("homewindowactive")
@@ -312,10 +311,6 @@ if __name__ == '__main__':
         elif window == "favourites":
             from FavWindow import FavWindow
             gui = FavWindow(u'script-globalsearch-main.xml', addon_path).doModal()
-            del gui
-        elif window == "featured":
-            from FeaturedWindow import FeaturedWindow
-            gui = FeaturedWindow(u'script-%s-featured.xml' % addon_name, addon_path).doModal()
             del gui
         elif window == "dialogalbuminfo":
             from DialogAlbumInfo import DialogAlbumInfo
