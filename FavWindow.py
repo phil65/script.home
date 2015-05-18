@@ -60,7 +60,6 @@ class FavWindow(xbmcgui.WindowXML):
         self.getControl(110).setLabel("Movies")
         self.getControl(111).addItems(listitems)
      #   self.setFocus(110)
-        Notify("here")
 
     def getControls(self):
         pass
