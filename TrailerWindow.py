@@ -58,7 +58,7 @@ class TrailerWindow(xbmcgui.WindowXML):
             focusedcontrol = self.getFocusId()
             MoveProperties(focusedcontrol, focusedcontrol)
             movieid = xbmc.getInfoLabel("Container(%i).ListItem.Property(ID)" % focusedcontrol)
-            builtin = "RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdbid=%s)" % (movieid, xbmc.getInfoLabel("Window(home).Property(imdbid)"))
+            builtin = "RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdb_id=%s)" % (movieid, xbmc.getInfoLabel("Window(home).Property(imdb_id)"))
             xbmc.executebuiltin(builtin)
         # elif action_id in ACTION_LEFT:
         #     for controlnumber in LISTS:

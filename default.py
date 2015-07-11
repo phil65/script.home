@@ -75,7 +75,6 @@ class GUI(xbmcgui.WindowXML):
                 Main_Menu_Move()
         elif action_id in ACTION_DOWN:
             if focusid == 9010:
-            #    numitems = xbmc.getInfoLabel("Container(9010).NumItems")
                 offsetleft = False
                 offsetright = False
                 for i in range(1, 10):
@@ -87,62 +86,6 @@ class GUI(xbmcgui.WindowXML):
                         offsetright = i
                 steps = (offsetleft - offsetright) / 2
                 xbmc.executebuiltin("Control.Move(9010, %i)" % steps)
-        if action_id in ACTION_SHOW_INFO:
-            if focusid == 9000:
-                if xbmc.getCondVisibility("IsEmpty(Window(home).Property(DisableWidgets))"):
-                    homewindow.setProperty("DisableWidgets", "1")
-                else:
-                    homewindow.clearProperty("DisableWidgets")
-            elif "featured" in label4321 and focusid in [5010, 5011, 5012]:
-                if focusid == 5010:
-                    xbmc.executebuiltin("Control.Move(5001,1)")
-                elif focusid == 5011:
-                    xbmc.executebuiltin("Control.Move(5002,1)")
-                elif focusid == 5012:
-                    xbmc.executebuiltin("Control.Move(5003,1)")
-            elif "featured" in label4325 and focusid in [6010, 6011, 6012]:
-                if focusid == 6010:
-                    xbmc.executebuiltin("Control.Move(6001,1)")
-                elif focusid == 6011:
-                    xbmc.executebuiltin("Control.Move(6002,1)")
-                elif focusid == 6012:
-                    xbmc.executebuiltin("Control.Move(6003,1)")
-            elif ("image" in label4321) and (focusid == 5010):
-                homewindow.setProperty("WidgetPosition", "Widget1")
-                xbmc.executebuiltin("SetFocus(22222)")
-            elif ("image" in label4325) and (focusid == 6010):
-                homewindow.setProperty("WidgetPosition", "Widget2")
-                xbmc.executebuiltin("SetFocus(22222)")
-            elif ("concert" in label4321) and (focusid == 5010):
-                xbmc.executebuiltin("RunScript(script.maps.browser,eventid=%s)" % xbmc.getInfoLabel("Container(5010).ListItem.Property(event_id)"))
-            elif ("concert" in label4325) and (focusid == 6010):
-                xbmc.executebuiltin("RunScript(script.maps.browser,eventid=%s)" % xbmc.getInfoLabel("Container(6010).ListItem.Property(event_id)"))
-            elif focusid == 5010:
-                homewindow.setProperty("WidgetPosition", "Widget1")
-                homewindow.setProperty("WidgetType", label4321)
-                dbid = xbmc.getInfoLabel("Container(5010).ListItem.DBID")
-                if dbid == "" or int(dbid) < 0:
-                    dbid = xbmc.getInfoLabel("Container(5010).ListItem.Property(DBID)")
-                if "movie" in label4321:
-                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdb_id=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdb_id)"), dbid))
-                elif "tv" in label4321:
-                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdb_id=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(5010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(5010).ListItem.Property(imdb_id)"), dbid))
-                else:
-                    homewindow.setProperty("PanelWidgetInfo", "true")
-                    MoveProperties(5010, 5055)
-            elif focusid == 6010:
-                homewindow.setProperty("WidgetType", label4325)
-                homewindow.setProperty("WidgetPosition", "Widget2")
-                dbid = xbmc.getInfoLabel("Container(6010).ListItem.DBID")
-                if dbid == "" or int(dbid) < 0:
-                    dbid = xbmc.getInfoLabel("Container(6010).ListItem.Property(DBID)")
-                if  "movie" in label4325:
-                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedinfo,id=%s,imdb_id=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdb_id)"), dbid))
-                elif "tv" in label4325:
-                    xbmc.executebuiltin("RunScript(script.extendedinfo,info=extendedtvinfo,id=%s,imdb_id=%s,dbid=%s)" % (xbmc.getInfoLabel("Container(6010).ListItem.Property(ID)"), xbmc.getInfoLabel("Container(6010).ListItem.Property(imdb_id)"), dbid))
-                else:
-                    homewindow.setProperty("PanelWidgetInfo", "true")
-                    MoveProperties(6010, 5055)
         elif action_id in ACTION_CONTEXT_MENU:
             if (("featured" in label4321.lower()) and (focusid in [5010, 5011, 5012])) or (("featured" in label4325) and (focusid in [6010, 6011, 6012])):
                 self.FeaturedContextMenu()
@@ -162,12 +105,10 @@ class GUI(xbmcgui.WindowXML):
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Label," + xbmc.getInfoLabel("Container(9000).ListItem.Label") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.MultiFanart," + xbmc.getInfoLabel("Container(9000).ListItem.Icon") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Icon," + xbmc.getInfoLabel("Container(9000).ListItem.Property(BigIcon)") + ")")
-        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget)") + ")")
-        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2)") + ")")
-        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.WidgetTitle," + xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetTitle)") + ")")
-        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2Title," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Title)") + ")")
-        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.WidgetContent," + xbmc.getInfoLabel("Container(9000).ListItem.Property(WidgetContent)") + ")")
-        xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Widget2Content," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Content)") + ")")
+        for i in range(0, 7):
+            xbmc.executebuiltin("Skin.SetString(ItemToEdit.Widget%iType," % i + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget%iType)" % i) + ")")
+            xbmc.executebuiltin("Skin.SetString(ItemToEdit.Widget%iTitle," % i + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget%iTitle)" % i) + ")")
+            xbmc.executebuiltin("Skin.SetString(ItemToEdit.Widget%iContent," % i + xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget%iContent)" % i) + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.BackgroundOverlay," + xbmc.getInfoLabel("Container(9000).ListItem.Property(BackgroundOverlay)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.InfoLine," + xbmc.getInfoLabel("Container(9000).ListItem.Property(InfoLine)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.SubMenu," + xbmc.getInfoLabel("Container(9000).ListItem.Property(submenuVisibility)") + ")")
