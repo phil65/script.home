@@ -61,33 +61,39 @@ class GUI(xbmcgui.WindowXML):
 
     def onAction(self, action):
         action_id = action.getId()
-        focusid = self.getFocusId()
-        widget1 = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget1Type)")
-        widget2 = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Type)")
+        focus_id = self.getFocusId()
+        widgets = {5010: xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget1Type)"),
+                   6010: xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Type)"),
+                   7010: xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget3Type)"),
+                   8010: xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget4Type)"),
+                   10010: xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget5Type)"),
+                   11010: xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget6Type)"),
+                   }
         if action_id in ACTION_SCROLL:
-            if focusid == 9000:
+            if focus_id == 9000:
                 Main_Menu_Move()
-        elif action_id in ACTION_DOWN:
-            if focusid == 9010:
-                offsetleft = False
-                offsetright = False
-                for i in range(1, 10):
-                    temp_offsetleft = xbmc.getInfoLabel("Container(9010).ListItemNoWrap(%i).Label" % (i))
-                    temp_offsetright = xbmc.getInfoLabel("Container(9010).ListItemNoWrap(%i).Label" % (i * -1))
-                    if (temp_offsetleft == "") and (offsetleft is False):
-                        offsetleft = i
-                    if (temp_offsetright == "") and (offsetright is False):
-                        offsetright = i
-                steps = (offsetleft - offsetright) / 2
-                xbmc.executebuiltin("Control.Move(9010, %i)" % steps)
+        # elif action_id in ACTION_DOWN:
+        #     if focus_id == 9010:
+        #         offsetleft = False
+        #         offsetright = False
+        #         for i in range(1, 10):
+        #             temp_offsetleft = xbmc.getInfoLabel("Container(9010).ListItemNoWrap(%i).Label" % (i))
+        #             temp_offsetright = xbmc.getInfoLabel("Container(9010).ListItemNoWrap(%i).Label" % (i * -1))
+        #             if (temp_offsetleft == "") and (offsetleft is False):
+        #                 offsetleft = i
+        #             if (temp_offsetright == "") and (offsetright is False):
+        #                 offsetright = i
+        #         steps = (offsetleft - offsetright) / 2
+        #         xbmc.executebuiltin("Control.Move(9010, %i)" % steps)
         elif action_id in ACTION_CONTEXT_MENU:
-            if focusid == 9000:
+            log(widgets.get(focus_id, ""))
+            if focus_id == 9000:
                 self.HomeContextMenu()
-            elif (("icon" in widget1.lower()) and (focusid == 5010)) or (("icon" in widget2.lower()) and (focusid == 6010)):
-                itemid = xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)")
-                HOME.setProperty("MenuItem", itemid)
+            elif "info" in widgets.get(focus_id, "").lower():
+                item_id = xbmc.getInfoLabel("Container(%i).ListItem.Property(ID)" % focus_id)
+                HOME.setProperty("MenuItem", item_id)
                 for item in ["Type", "MultiFanart", "Label", "Path", "Icon"]:
-                    builtin = "Skin.SetString(ItemToEdit." + item + "," + xbmc.getInfoLabel("Skin.String(" + itemid + "." + item + ")") + ")"
+                    builtin = "Skin.SetString(ItemToEdit." + item + "," + xbmc.getInfoLabel("Skin.String(" + item_id + "." + item + ")") + ")"
                     xbmc.executebuiltin(builtin)
                 xbmc.executebuiltin("ActivateWindow(1135)")
 
