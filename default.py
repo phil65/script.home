@@ -21,16 +21,10 @@ import xbmcaddon
 import xbmcgui
 from Utils import *
 
-__addon__ = xbmcaddon.Addon()
-__addonid__ = __addon__.getAddonInfo('id')
-__language__ = __addon__.getLocalizedString
-__addonpath__ = __addon__.getAddonInfo('path')
-
-
-addon = xbmcaddon.Addon()
-addon_path = addon.getAddonInfo('path')
-addon_name = addon.getAddonInfo('name')
-skindir = xbmc.getSkinDir()
+ADDON = xbmcaddon.Addon()
+ADDON_PATH = ADDON.getAddonInfo('path')
+ADDON_NAME = ADDON.getAddonInfo('name')
+SKIN_DIR = xbmc.getSkinDir()
 
 CONTROL_SEARCH = 101
 ACTION_CONTEXT_MENU = [117]
@@ -49,17 +43,17 @@ ACTION_0 = [58, 18]
 ACTION_PLAY = [79]
 ACTION_SELECT_ITEM = [7]
 CANCEL_DIALOG = [9, 10, 92, 216, 247, 257, 275, 61467, 61448]
-homewindow = xbmcgui.Window(10000)
+HOME = xbmcgui.Window(10000)
 
 
 class GUI(xbmcgui.WindowXML):
 
-    def __init__(self, skin_file, addon_path):
+    def __init__(self, *args, **kwargs):
         log('__init__')
 
     def onInit(self, startGUI=True):
         log('onInit')
-        if xbmc.getSkinDir() != skindir:
+        if xbmc.getSkinDir() != SKIN_DIR:
             self.close()
 
     def getControls(self):
@@ -68,8 +62,8 @@ class GUI(xbmcgui.WindowXML):
     def onAction(self, action):
         action_id = action.getId()
         focusid = self.getFocusId()
-        label4321 = xbmc.getInfoLabel("Control.GetLabel(4321)")
-        label4325 = xbmc.getInfoLabel("Control.GetLabel(4325)")
+        widget1 = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget1Type)")
+        widget2 = xbmc.getInfoLabel("Container(9000).ListItem.Property(Widget2Type)")
         if action_id in ACTION_SCROLL:
             if focusid == 9000:
                 Main_Menu_Move()
@@ -87,13 +81,11 @@ class GUI(xbmcgui.WindowXML):
                 steps = (offsetleft - offsetright) / 2
                 xbmc.executebuiltin("Control.Move(9010, %i)" % steps)
         elif action_id in ACTION_CONTEXT_MENU:
-            if (("featured" in label4321.lower()) and (focusid in [5010, 5011, 5012])) or (("featured" in label4325) and (focusid in [6010, 6011, 6012])):
-                self.FeaturedContextMenu()
-            elif focusid == 9000:
+            if focusid == 9000:
                 self.HomeContextMenu()
-            elif (("icon" in label4321.lower()) and (focusid == 5010)) or (("icon" in label4325.lower()) and (focusid == 6010)):
+            elif (("icon" in widget1.lower()) and (focusid == 5010)) or (("icon" in widget2.lower()) and (focusid == 6010)):
                 itemid = xbmc.getInfoLabel("Container(" + str(self.getFocusId()) + ").ListItem.Property(ID)")
-                homewindow.setProperty("MenuItem", itemid)
+                HOME.setProperty("MenuItem", itemid)
                 for item in ["Type", "MultiFanart", "Label", "Path", "Icon"]:
                     builtin = "Skin.SetString(ItemToEdit." + item + "," + xbmc.getInfoLabel("Skin.String(" + itemid + "." + item + ")") + ")"
                     xbmc.executebuiltin(builtin)
@@ -115,7 +107,7 @@ class GUI(xbmcgui.WindowXML):
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Disable," + xbmc.getInfoLabel("Container(9000).ListItem.Property(DisableIcon)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Type," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Type)") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Path," + xbmc.getInfoLabel("Container(9000).ListItem.Property(Path)") + ")")
-        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Edit Main Menu Item", "Exchange Position", "Hide / Unhide All Items", "Color Settings", "Furniture Settings"])
+        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', ADDON_PATH, labels=["Edit Main Menu Item", "Exchange Position", "Hide / Unhide All Items", "Color Settings", "Furniture Settings"])
         context_menu.doModal()
         if context_menu.selection == 0:
             xbmc.executebuiltin("ActivateWindow(1122)")
@@ -130,41 +122,6 @@ class GUI(xbmcgui.WindowXML):
             xbmc.executebuiltin("ActivateWindow(1128)")
         elif context_menu.selection == 4:
             xbmc.executebuiltin("ActivateWindow(1131)")
-
-    def FeaturedContextMenu(self):
-        focusedcontrol = self.getFocusId()
-        label4321 = xbmc.getInfoLabel("Control.GetLabel(4321)")
-        label4325 = xbmc.getInfoLabel("Control.GetLabel(4325)")
-        if (focusedcontrol > 6000) and ("music" in label4325):
-            playlistpath = 'special://musicplaylists/'
-            playlisttype = "Music"
-        elif (focusedcontrol < 6000) and ("music" in label4321):
-            playlistpath = 'special://musicplaylists/'
-            playlisttype = "Music"
-        elif (focusedcontrol > 6000) and ("tv" in label4325):
-            playlistpath = 'special://videoplaylists/'
-            playlisttype = "TV"
-        elif (focusedcontrol < 6000) and ("tv" in label4321):
-            playlistpath = 'special://videoplaylists/'
-            playlisttype = "TV"
-        else:
-            playlistpath = 'special://videoplaylists/'
-            playlisttype = "Movies"
-        context_menu = ContextMenu(u'script-globalsearch-contextmenu.xml', addon_path, labels=["Set to Smart Playlist", "Set to Default"])
-        context_menu.doModal()
-        Skin_String = "Featured" + playlisttype + str(focusedcontrol) + ".Content"
-        if context_menu.selection == 0:
-            playlist = xbmcgui.Dialog().browse(1, "Choose Playlist", 'files', ".xsp", False, False, playlistpath)
-            builtin = "Skin.SetString(%s,%s)" % (Skin_String, playlist)
-       #     log(builtin)
-            xbmc.executebuiltin(builtin)
-        # elif context_menu.selection == 1:
-        #     xbmc.executebuiltin("SetProperty(WidgetTargetPrefix,Featured" + playlisttype + str(focusedcontrol) + ",skinsettings)")
-        #     xbmc.executebuiltin("ActivateWindow(1133)")
-        elif context_menu.selection == 1:
-            builtin = "Skin.Reset(%s)" % (Skin_String)
-            xbmc.executebuiltin(builtin)
-        del context_menu
 
     def onClick(self, controlId):
         if controlId == 9000:
@@ -237,29 +194,29 @@ if __name__ == '__main__':
             focuscontrol = param[13:]
     if window is not None:
         if window == "home":
-            homewindow.setProperty("homewindowactive", "true")
-            gui = GUI(u'script-%s-main.xml' % addon_name, addon_path).doModal()
-            homewindow.clearProperty("homewindowactive")
+            HOME.setProperty("homewindowactive", "true")
+            gui = GUI(u'script-%s-main.xml' % ADDON_NAME, ADDON_PATH).doModal()
+            HOME.clearProperty("homewindowactive")
             del gui
         elif window == "colorconfig":
             from ColorConfigDialog import ColorConfigDialog
-            gui = ColorConfigDialog(u'script-%s-colorconfig.xml' % addon_name, addon_path).doModal()
+            gui = ColorConfigDialog(u'script-%s-colorconfig.xml' % ADDON_NAME, ADDON_PATH).doModal()
             del gui
         elif window == "trailers":
             from TrailerWindow import TrailerWindow
-            gui = TrailerWindow(u'script-%s-trailers.xml' % addon_name, addon_path).doModal()
+            gui = TrailerWindow(u'script-%s-trailers.xml' % ADDON_NAME, ADDON_PATH).doModal()
             del gui
         elif window == "favourites":
             from FavWindow import FavWindow
-            gui = FavWindow(u'script-globalsearch-main.xml', addon_path).doModal()
+            gui = FavWindow(u'script-globalsearch-main.xml', ADDON_PATH).doModal()
             del gui
         elif window == "dialogalbuminfo":
             from DialogAlbumInfo import DialogAlbumInfo
-            gui = DialogAlbumInfo(u'script-%s-dialogalbuminfo.xml' % addon_name, addon_path).doModal()
+            gui = DialogAlbumInfo(u'script-%s-dialogalbuminfo.xml' % ADDON_NAME, ADDON_PATH).doModal()
             del gui
         elif window == "fullscreeninfo":
             from FullscreenInfo import FullscreenInfo
-            gui = FullscreenInfo(u'script-%s-fullscreeninfo.xml' % addon_name, addon_path).doModal()
+            gui = FullscreenInfo(u'script-%s-fullscreeninfo.xml' % ADDON_NAME, ADDON_PATH).doModal()
             del gui
         elif window == "downloader":
             from Downloader import Downloader
