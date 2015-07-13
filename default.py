@@ -98,7 +98,7 @@ class GUI(xbmcgui.WindowXML):
                 xbmc.executebuiltin("ActivateWindow(1135)")
 
     def HomeContextMenu(self):
-        xbmc.executebuiltin("SetProperty(" + xbmc.getInfoLabel("Window(home).Property(MenuName)") + "," + xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)") + ",home)")
+        xbmc.executebuiltin("SetProperty(%s,%s,home)" % (xbmc.getInfoLabel("Window(home).Property(MenuName)"), xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)")))
         xbmc.executebuiltin("SetProperty(MenuItem," + xbmc.getInfoLabel("Container(9000).ListItem.Property(ID)") + ",home)")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.Label," + xbmc.getInfoLabel("Container(9000).ListItem.Label") + ")")
         xbmc.executebuiltin("Skin.Setstring(ItemToEdit.MultiFanart," + xbmc.getInfoLabel("Container(9000).ListItem.Icon") + ")")
@@ -127,7 +127,7 @@ class GUI(xbmcgui.WindowXML):
         elif context_menu.selection == 3:
             xbmc.executebuiltin("ActivateWindow(1128)")
         elif context_menu.selection == 4:
-            xbmc.executebuiltin("ActivateWindow(1131)")
+            xbmc.executebuiltin("ActivateWindow(1130)")
 
     def onClick(self, controlId):
         if controlId == 9000:
