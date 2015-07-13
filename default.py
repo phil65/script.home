@@ -86,10 +86,9 @@ class GUI(xbmcgui.WindowXML):
         #         steps = (offsetleft - offsetright) / 2
         #         xbmc.executebuiltin("Control.Move(9010, %i)" % steps)
         elif action_id in ACTION_CONTEXT_MENU:
-            log(widgets.get(focus_id, ""))
             if focus_id == 9000:
                 self.HomeContextMenu()
-            elif "info" in widgets.get(focus_id, "").lower():
+            elif "icon" in widgets.get(focus_id, "").lower():
                 item_id = xbmc.getInfoLabel("Container(%i).ListItem.Property(ID)" % focus_id)
                 HOME.setProperty("MenuItem", item_id)
                 for item in ["Type", "MultiFanart", "Label", "Path", "Icon"]:
